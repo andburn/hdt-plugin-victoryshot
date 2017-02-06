@@ -1,0 +1,40 @@
+﻿<Window x:Class="HDT.Plugins.VictoryCap.Views.MainView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:HDT.Plugins.VictoryCap.Views"             
+             xmlns:viewmodels="clr-namespace:HDT.Plugins.VictoryCap.ViewModels"
+             xmlns:views="clr-namespace:HDT.Plugins.VictoryCap.Views"
+             xmlns:controls="clr-namespace:HDT.Plugins.Common.Controls;assembly=HDT.Plugins.Common"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300"
+             Width="540" Height="440"
+             Title="Hearthstone Deck Tracker (Victory Cap)">
+    <Window.DataContext>
+        <viewmodels:MainViewModel />
+    </Window.DataContext>
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type viewmodels:SettingsViewModel}">
+            <views:SettingsView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:ScreenshotsViewModel}">
+            <views:ScreenshotsView />
+        </DataTemplate>
+    </Window.Resources>
+    <DockPanel>
+        <DockPanel DockPanel.Dock="Top" Background="BlueViolet" Height="60">
+            <controls:MoonTextButton DockPanel.Dock="Right" Margin="4"
+                                     Text="SETTINGS" Icon="&#xe994;"
+                                     Command="{Binding NavigateCommand}" Param="settings" />
+            <controls:MoonTextButton DockPanel.Dock="Right" Margin="4"
+                                     Text="IMPORT" Icon="&#xe9c7;"
+                                     Command="{Binding NavigateCommand}" Param="screenshots" />
+            <TextBlock Foreground="White" FontSize="28" VerticalAlignment="Center" Margin="8">Victory Cap</TextBlock>
+        </DockPanel>
+        <DockPanel DockPanel.Dock="Top" Background="CadetBlue">
+            <TextBlock Text="{Binding ContentTitle}" Foreground="White" FontSize="16" Margin="8,4,4,4" />
+        </DockPanel>
+        <ContentControl Content="{Binding ContentViewModel}" Margin="5,20,5,10" />
+    </DockPanel>
+</Window>
