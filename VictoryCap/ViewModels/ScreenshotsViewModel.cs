@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using HDT.Plugins.Common.Services;
@@ -42,6 +43,20 @@ namespace HDT.Plugins.VictoryCap.ViewModels
 			set { Set(() => HasScreenshots, ref _hasScreenshots, value); }
 		}
 
+		public bool HasNoScreenshots
+		{
+			get { return !_hasScreenshots; }
+			set { Set(() => HasNoScreenshots, ref _hasScreenshots, !value); }
+		}
+
+		private string _screenshotCountText;
+
+		public string ScreenshotCountText
+		{
+			get { return _screenshotCountText; }
+			set { Set(() => ScreenshotCountText, ref _screenshotCountText, value); }
+		}
+
 		public RelayCommand WindowClosingCommand { get; private set; }
 
 		public ScreenshotsViewModel()
@@ -65,9 +80,16 @@ namespace HDT.Plugins.VictoryCap.ViewModels
 			_cap = capture;
 			_log = logger;
 
-			PropertyChanged += NoteViewModel_PropertyChanged;
+			Screenshots = DesignerData.GenerateScreenshots();//VictoryCap.Screenshots;
+			HasScreenshots = Screenshots?.Count > 0;
+			if (HasScreenshots)
+			{
+				ScreenshotCountText = $"{Screenshots.Count} Images Captured";
+			}
 
-			WindowClosingCommand = new RelayCommand(() => Closing());
+			PropertyChanged += ScreenshotsViewModel_PropertyChanged;
+
+			WindowClosingCommand = new RelayCommand(async () => await Closing());
 		}
 
 		public ScreenshotsViewModel(ObservableCollection<Screenshot> screenshots)
@@ -77,13 +99,14 @@ namespace HDT.Plugins.VictoryCap.ViewModels
 			HasScreenshots = Screenshots != null && Screenshots.Any();
 		}
 
-		private void NoteViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+		private void ScreenshotsViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
 		{
+			// TODO remove
 			if (e.PropertyName == "Note")
 				_repository.UpdateGameNote(Note);
 		}
 
-		private void Closing()
+		private async Task Closing()
 		{
 			var screenshot = Screenshots?.FirstOrDefault(s => s.IsSelected);
 			if (screenshot != null)
@@ -91,7 +114,7 @@ namespace HDT.Plugins.VictoryCap.ViewModels
 				_log.Debug($"Attempting to save screenshot #{screenshot.Index}");
 				try
 				{
-					_cap.SaveImage(screenshot);
+					await ViewModelHelper.SaveImage(screenshot);
 				}
 				catch (Exception e)
 				{

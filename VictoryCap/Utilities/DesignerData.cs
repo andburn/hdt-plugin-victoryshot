@@ -23,7 +23,15 @@ namespace HDT.Plugins.VictoryCap.Utilities
 					new Screenshot(null, bmp, 1),
 					new Screenshot(null, bmp, 2),
 					new Screenshot(null, bmp, 3),
-					new Screenshot(null, bmp, 4)
+					new Screenshot(null, bmp, 4),
+					new Screenshot(null, bmp, 5),
+					new Screenshot(null, bmp, 6),
+					new Screenshot(null, bmp, 7),
+					new Screenshot(null, bmp, 8),
+					new Screenshot(null, bmp, 9),
+					new Screenshot(null, bmp, 10),
+					new Screenshot(null, bmp, 11),
+					new Screenshot(null, bmp, 12)
 				};
 		}
 	}

@@ -34,6 +34,7 @@ namespace HDT.Plugins.VictoryCap.ViewModels
 			}
 		}
 
+		// TODO don't use this now, remove
 		public bool UseAdvancedShot
 		{
 			get

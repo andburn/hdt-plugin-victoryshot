@@ -7,9 +7,9 @@
              xmlns:viewmodels="clr-namespace:HDT.Plugins.VictoryCap.ViewModels"
              xmlns:views="clr-namespace:HDT.Plugins.VictoryCap.Views"
              xmlns:controls="clr-namespace:HDT.Plugins.Common.Controls;assembly=HDT.Plugins.Common"
-             mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300"
-             Width="540" Height="440"
+             mc:Ignorable="d" Topmost="True"
+             Width="350" Height="724"
+             MinHeight="400" MaxWidth="350" MinWidth="350"
              Title="Hearthstone Deck Tracker (Victory Cap)">
     <Window.DataContext>
         <viewmodels:MainViewModel />
@@ -23,18 +23,22 @@
         </DataTemplate>
     </Window.Resources>
     <DockPanel>
-        <DockPanel DockPanel.Dock="Top" Background="BlueViolet" Height="60">
-            <controls:MoonTextButton DockPanel.Dock="Right" Margin="4"
-                                     Text="SETTINGS" Icon="&#xe994;"
+        <DockPanel DockPanel.Dock="Top" Height="60">
+            <DockPanel.Background>
+                <ImageBrush ImageSource="pack://application:,,,/VictoryCap;component/Resources/hdt-banner.png" 
+                            TileMode="Tile" Stretch="UniformToFill"/>
+            </DockPanel.Background>
+            <controls:MoonTextButton DockPanel.Dock="Right" Margin="4,4,6,4"
+                                     Text="SETTINGS" Icon="&#xe994;" Cursor="Hand"
                                      Command="{Binding NavigateCommand}" Param="settings" />
-            <controls:MoonTextButton DockPanel.Dock="Right" Margin="4"
-                                     Text="IMPORT" Icon="&#xe9c7;"
-                                     Command="{Binding NavigateCommand}" Param="screenshots" />
+            <controls:MoonTextButton DockPanel.Dock="Right" Margin="4,4,6,4"
+                                     Text="CAPTURES" Icon="&#xe90e;" Cursor="Hand"
+                                     Command="{Binding NavigateCommand}" Param="captures" />
             <TextBlock Foreground="White" FontSize="28" VerticalAlignment="Center" Margin="8">Victory Cap</TextBlock>
         </DockPanel>
-        <DockPanel DockPanel.Dock="Top" Background="CadetBlue">
+        <DockPanel DockPanel.Dock="Top" Background="#2e3136">
             <TextBlock Text="{Binding ContentTitle}" Foreground="White" FontSize="16" Margin="8,4,4,4" />
         </DockPanel>
-        <ContentControl Content="{Binding ContentViewModel}" Margin="5,20,5,10" />
+        <ContentControl Content="{Binding ContentViewModel}" Margin="5,10" />
     </DockPanel>
 </Window>

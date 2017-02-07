@@ -8,6 +8,6 @@ namespace HDT.Plugins.VictoryCap.Services
 	{
 		Task<ObservableCollection<Screenshot>> CaptureSequence(int delay, string dir, int num, int delayBetween);
 
-		Task SaveImage(Screenshot img);
+		bool IsCapturing { get; }
 	}
 }

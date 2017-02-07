@@ -16,5 +16,15 @@ namespace HDT.Plugins.VictoryCap.Views
 			Width += ScreenshotList.ActualWidth;
 			MinWidth += ScreenshotList.ActualWidth;
 		}
+
+		private void ScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+		{
+			ScrollViewer scv = sender as ScrollViewer;
+			if (scv != null)
+			{
+				scv.ScrollToVerticalOffset(scv.VerticalOffset - e.Delta);
+				e.Handled = true;
+			}
+		}
 	}
 }

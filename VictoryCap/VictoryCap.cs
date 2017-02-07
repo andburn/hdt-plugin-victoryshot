@@ -16,7 +16,6 @@ using HDT.Plugins.VictoryCap.Models;
 using HDT.Plugins.VictoryCap.Services;
 using HDT.Plugins.VictoryCap.ViewModels;
 using HDT.Plugins.VictoryCap.Views;
-using MahApps.Metro.Controls;
 
 namespace HDT.Plugins.VictoryCap
 {
@@ -32,9 +31,9 @@ namespace HDT.Plugins.VictoryCap
 		public static readonly IConfigurationRepository Config;
 		public static readonly Settings Settings;		
 
-		private static Flyout _settingsFlyout;
-		private static Flyout _notificationFlyout;
 		private static IImageCaptureService _capture;
+
+		public static ObservableCollection<Screenshot> Screenshots;
 
 		static VictoryCap()
 		{
@@ -52,8 +51,7 @@ namespace HDT.Plugins.VictoryCap
 			Settings = new Settings(assembly.GetManifestResourceStream(resourceName), "VictoryCap");
 			// other
 			_capture = new TrackerCapture();
-			_notificationFlyout = CreateDialogFlyout();
-			_settingsFlyout = CreateSettingsFlyout();
+			//Screenshots = new ObservableCollection<Screenshot>();
 		}
 
 		public VictoryCap()
@@ -76,13 +74,13 @@ namespace HDT.Plugins.VictoryCap
 		private MenuItem CreatePluginMenu()
 		{
 			var pm = new PluginMenu("Victory Cap", "trophy", 
-				new RelayCommand(() => ShowSettings()));
+				new RelayCommand(() => ShowMainView()));
 			return pm.Menu;
 		}
 
 		public override void OnButtonPress()
 		{
-			ShowSettings();
+			ShowMainView();
 		}
 
 		public override async void OnLoad()
@@ -95,8 +93,7 @@ namespace HDT.Plugins.VictoryCap
 
 		public override void OnUnload()
 		{
-			CloseOpenCapWindows();
-			CloseSettings();
+			CloseMainView();
 		}
 
 		public async static void Run()
@@ -104,19 +101,15 @@ namespace HDT.Plugins.VictoryCap
 			try
 			{
 				var mode = Data.GetGameMode();
-				// close any already open note windows
-				CloseOpenCapWindows();
+				// close any already open views
+				CloseMainView();
 				// take the screenshots
-				var screenshots = await Capture(mode);
-				// check what features are enabled
+				Screenshots = await Capture(mode);
+				// check what game modes are enabled
 				if (IsModeEnabledForScreenshots(mode))
 				{
-					var viewModel = new ScreenshotsViewModel(screenshots);
-					var view = new ScreenshotsView();
-					view.DataContext = viewModel;
 					await WaitUntilInMenu();
-					// TODO Navigate on mainview
-					//view.Show();
+					ShowMainView();
 				}
 			}
 			catch (Exception e)
@@ -126,23 +119,29 @@ namespace HDT.Plugins.VictoryCap
 			}
 		}
 
-		public static void CloseOpenCapWindows()
+		// TODO bring to front, center?
+		private static void ShowMainView()
 		{
-			foreach (var x in Application.Current.Windows.OfType<MainView>())
-				x.Close();
+			MainView view = null;
+			var open = Application.Current.Windows.OfType<MainView>();
+			if (open.Count() > 0)
+			{
+				view = open.First();
+				if (view.WindowState == WindowState.Minimized)
+					view.WindowState = WindowState.Normal;				
+			}
+			else
+			{
+				view = new MainView();
+				view.Show();
+			}
+			view.Activate();
 		}
 
-		public static void ShowSettings()
+		public static void CloseMainView()
 		{
-			if (_settingsFlyout == null)
-				_settingsFlyout = CreateSettingsFlyout();
-			_settingsFlyout.IsOpen = true;
-		}
-
-		public static void CloseSettings()
-		{
-			if (_settingsFlyout != null)
-				_settingsFlyout.IsOpen = false;
+			foreach (var view in Application.Current.Windows.OfType<MainView>())
+				view.Close();
 		}
 
 		public static void Notify(string title, string message, int autoClose, string icon = null, Action action = null)
@@ -217,35 +216,6 @@ namespace HDT.Plugins.VictoryCap
 				if (elapsed >= timeout)
 					return;
 			}
-		}
-
-		private static Flyout CreateSettingsFlyout()
-		{
-			var settings = new Flyout();
-			settings.Name = "VictoryCapSettingsFlyout";
-			settings.Position = Position.Left;
-			Panel.SetZIndex(settings, 100);
-			settings.Header = "End Game Settings";
-			settings.Content = new SettingsView();
-			var metroWindow = Client.MainWindow() as MetroWindow;
-			metroWindow.Flyouts.Items.Add(settings);
-			return settings;
-		}
-
-		private static Flyout CreateDialogFlyout()
-		{
-			var dialog = new Flyout();
-			dialog.Name = "VictoryCapDialogFlyout";
-			dialog.Theme = FlyoutTheme.Accent;
-			dialog.Position = Position.Bottom;
-			dialog.TitleVisibility = Visibility.Collapsed;
-			dialog.CloseButtonVisibility = Visibility.Collapsed;
-			dialog.IsPinned = false;
-			dialog.Height = 50;
-			Panel.SetZIndex(dialog, 1000);
-			var metroWindow = Client.MainWindow() as MetroWindow;
-			metroWindow.Flyouts.Items.Add(dialog);
-			return dialog;
 		}
 
 		private async Task UpdateCheck(string name, string repo)
