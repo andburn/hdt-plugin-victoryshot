@@ -34,6 +34,7 @@ namespace HDT.Plugins.VictoryCap
 		private static IImageCaptureService _capture;
 
 		public static ObservableCollection<Screenshot> Screenshots;
+		public static MainViewModel MainViewModel;
 
 		static VictoryCap()
 		{
@@ -51,7 +52,7 @@ namespace HDT.Plugins.VictoryCap
 			Settings = new Settings(assembly.GetManifestResourceStream(resourceName), "VictoryCap");
 			// other
 			_capture = new TrackerCapture();
-			//Screenshots = new ObservableCollection<Screenshot>();
+			MainViewModel = new MainViewModel();
 		}
 
 		public VictoryCap()
@@ -74,13 +75,13 @@ namespace HDT.Plugins.VictoryCap
 		private MenuItem CreatePluginMenu()
 		{
 			var pm = new PluginMenu("Victory Cap", "trophy", 
-				new RelayCommand(() => ShowMainView()));
+				new RelayCommand(() => ShowMainView(ViewModelHelper.SettingsString)));
 			return pm.Menu;
 		}
 
 		public override void OnButtonPress()
 		{
-			ShowMainView();
+			ShowMainView(ViewModelHelper.SettingsString);
 		}
 
 		public override async void OnLoad()
@@ -109,7 +110,7 @@ namespace HDT.Plugins.VictoryCap
 				if (IsModeEnabledForScreenshots(mode))
 				{
 					await WaitUntilInMenu();
-					ShowMainView();
+					ShowMainView(ViewModelHelper.ScreenshotsString);
 				}
 			}
 			catch (Exception e)
@@ -119,23 +120,17 @@ namespace HDT.Plugins.VictoryCap
 			}
 		}
 
-		// TODO bring to front, center?
-		private static void ShowMainView()
+		private static void ShowMainView(string location)
 		{
-			MainView view = null;
-			var open = Application.Current.Windows.OfType<MainView>();
-			if (open.Count() > 0)
-			{
-				view = open.First();
-				if (view.WindowState == WindowState.Minimized)
-					view.WindowState = WindowState.Normal;				
-			}
-			else
-			{
-				view = new MainView();
-				view.Show();
-			}
+			// close any open windows
+			CloseMainView();
+			// create view
+			MainView view = new MainView();
+			view.DataContext = MainViewModel;
+			view.Show();
 			view.Activate();
+			// navigate to location
+			MainViewModel.OnNavigation(location);
 		}
 
 		public static void CloseMainView()

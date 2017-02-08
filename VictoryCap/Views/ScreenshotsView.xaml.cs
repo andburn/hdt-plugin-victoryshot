@@ -11,12 +11,6 @@ namespace HDT.Plugins.VictoryCap.Views
 			InitializeComponent();
 		}
 
-		private void ViewLoaded(object sender, RoutedEventArgs e)
-		{
-			Width += ScreenshotList.ActualWidth;
-			MinWidth += ScreenshotList.ActualWidth;
-		}
-
 		private void ScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
 		{
 			ScrollViewer scv = sender as ScrollViewer;

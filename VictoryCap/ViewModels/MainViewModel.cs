@@ -36,7 +36,7 @@ namespace HDT.Plugins.VictoryCap.ViewModels
 			NavigateCommand = new RelayCommand<string>(x => OnNavigation(x));
 		}
 
-		private void OnNavigation(string location)
+		public void OnNavigation(string location)
 		{
 			var key = location.ToLower();
 			if (viewModels.ContainsKey(key))

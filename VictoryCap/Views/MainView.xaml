@@ -8,8 +8,8 @@
              xmlns:views="clr-namespace:HDT.Plugins.VictoryCap.Views"
              xmlns:controls="clr-namespace:HDT.Plugins.Common.Controls;assembly=HDT.Plugins.Common"
              mc:Ignorable="d" Topmost="True"
-             Width="350" Height="724"
-             MinHeight="400" MaxWidth="350" MinWidth="350"
+             Width="320" Height="720"
+             MinHeight="400" MaxWidth="320" MinWidth="320"
              Title="Hearthstone Deck Tracker (Victory Cap)">
     <Window.DataContext>
         <viewmodels:MainViewModel />
@@ -39,6 +39,6 @@
         <DockPanel DockPanel.Dock="Top" Background="#2e3136">
             <TextBlock Text="{Binding ContentTitle}" Foreground="White" FontSize="16" Margin="8,4,4,4" />
         </DockPanel>
-        <ContentControl Content="{Binding ContentViewModel}" Margin="5,10" />
+        <ContentControl Content="{Binding ContentViewModel}" />
     </DockPanel>
 </Window>

@@ -80,12 +80,9 @@ namespace HDT.Plugins.VictoryCap.ViewModels
 			_cap = capture;
 			_log = logger;
 
-			Screenshots = DesignerData.GenerateScreenshots();//VictoryCap.Screenshots;
+			Screenshots = VictoryCap.Screenshots;
 			HasScreenshots = Screenshots?.Count > 0;
-			if (HasScreenshots)
-			{
-				ScreenshotCountText = $"{Screenshots.Count} Images Captured";
-			}
+			ScreenshotCountText = HasScreenshots ? $"{Screenshots.Count} Images Captured" : "No Caputres Available";
 
 			PropertyChanged += ScreenshotsViewModel_PropertyChanged;
 
@@ -115,6 +112,9 @@ namespace HDT.Plugins.VictoryCap.ViewModels
 				try
 				{
 					await ViewModelHelper.SaveImage(screenshot);
+					// clear the screenshots
+					Screenshots.Clear();
+					// TODO prop change count, button enabled
 				}
 				catch (Exception e)
 				{

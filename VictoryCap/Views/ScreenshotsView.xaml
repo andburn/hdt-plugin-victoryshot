@@ -26,65 +26,70 @@
             </Path>
         </Canvas>
     </UserControl.Resources>
-    <DockPanel Width="300">
-        <Border DockPanel.Dock="Top" Margin="6,0,0,0" BorderThickness="0,0,0,1">
-            <TextBlock Text="{Binding ScreenshotCountText}" />
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Column="0" Grid.Row="0" BorderBrush="Black" BorderThickness="0,0,0,0.5" Padding="2">
+            <TextBlock HorizontalAlignment="Center" 
+                   VerticalAlignment="Center" 
+                   FontSize="16" 
+                   FontWeight="Bold" 
+                   Margin="0,6"
+                   Text="{Binding ScreenshotCountText}" />
         </Border>
-        <Grid DockPanel.Dock="Bottom">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Height="40" Margin="5"
-                    Command="{Binding WindowClosingCommand}">Save</Button>
-            <Button Grid.Column="1" Height="40" Margin="5">Cancel</Button>
-        </Grid>
-        <StackPanel>
-            <TextBlock Visibility="{Binding HasNoScreenshots, Converter={StaticResource VisibilityConverter}, FallbackValue=Collapsed}" 
-                       HorizontalAlignment="Center" 
-                       VerticalAlignment="Center" 
-                       FontSize="16" 
-                       FontWeight="Bold" 
-                       Margin="0,6">No Screenshots Available</TextBlock>
-            <ScrollViewer x:Name="ScreenshotList"
-                          PreviewMouseWheel="ScrollViewer_PreviewMouseWheel"
-                          Visibility="{Binding HasScreenshots, Converter={StaticResource VisibilityConverter}, FallbackValue=Collapsed}">
-                <ListBox x:Name="ListBox_Images" SelectionMode="Single" ItemsSource="{Binding Screenshots}">
-                    <ListBox.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                        </ItemsPanelTemplate>
-                    </ListBox.ItemsPanel>
-                    <ListBox.ItemContainerStyle>
-                        <Style TargetType="{x:Type ListBoxItem}">
-                            <Setter Property="IsSelected" Value="{Binding IsSelected}" />
-                            <Style.Resources>
-                                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent" />
-                            </Style.Resources>
-                        </Style>
-                    </ListBox.ItemContainerStyle>
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <Grid Height="110" Width="140" Margin="3">
-                                <Image Source="{Binding Thumbnail}" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None" />
-                                <Rectangle x:Name="CheckedOverlay" Width="32" Height="32" Canvas.Right="20" Canvas.Bottom="15" Visibility="Hidden">
-                                    <Rectangle.Fill>
-                                        <VisualBrush Visual="{StaticResource CheckedIcon}" Stretch="Uniform" />
-                                    </Rectangle.Fill>
-                                </Rectangle>
-                                <TextBlock Text="{Binding Index}" FontSize="14" FontWeight="Bold"
+
+        <ScrollViewer x:Name="ScreenshotList"
+                      Grid.Column="0" Grid.Row="1"
+                      Margin="0,6"
+                      PreviewMouseWheel="ScrollViewer_PreviewMouseWheel"
+                      Visibility="{Binding HasScreenshots, Converter={StaticResource VisibilityConverter}, FallbackValue=Collapsed}">
+            <ListBox x:Name="ListBox_Images" SelectionMode="Single" ItemsSource="{Binding Screenshots}">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListBoxItem}">
+                        <Setter Property="IsSelected" Value="{Binding IsSelected}" />
+                        <Style.Resources>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent" />
+                        </Style.Resources>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Height="110" Width="140" Margin="3">
+                            <Image Source="{Binding Thumbnail}" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None" />
+                            <Rectangle x:Name="CheckedOverlay" Width="32" Height="32" Canvas.Right="20" Canvas.Bottom="15" Visibility="Hidden">
+                                <Rectangle.Fill>
+                                    <VisualBrush Visual="{StaticResource CheckedIcon}" Stretch="Uniform" />
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            <TextBlock Text="{Binding Index}" FontSize="14" FontWeight="Bold"
                                            Foreground="White" Background="Black" Padding="5,0"
                                            Margin="4,5,6,6" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                            </Grid>
-                            <DataTemplate.Triggers>
-                                <DataTrigger Binding="{Binding IsSelected}" Value="True">
-                                    <Setter TargetName="CheckedOverlay" Property="Visibility" Value="Visible" />
-                                </DataTrigger>
-                            </DataTemplate.Triggers>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-            </ScrollViewer>
-        </StackPanel>
-    </DockPanel>
+                        </Grid>
+                        <DataTemplate.Triggers>
+                            <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                                <Setter TargetName="CheckedOverlay" Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </DataTemplate.Triggers>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </ScrollViewer>
+
+        <Border Grid.Column="0" Grid.Row="2"
+                Background="#2e3136" BorderThickness="0">
+            <Button Height="40" Width="100" Margin="8" 
+                    IsEnabled="{Binding HasScreenshots}"
+                    Command="{Binding WindowClosingCommand}" Cursor="Hand">Save</Button>
+        </Border>
+
+    </Grid>
 </UserControl>

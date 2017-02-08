@@ -5,9 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:local="clr-namespace:HDT.Plugins.VictoryCap.Views"
-             mc:Ignorable="d" Background="White"
-             Width="300">
-    <StackPanel Margin="10">
+             mc:Ignorable="d" d:DesignWidth="300">
+    <StackPanel Margin="15">
 
         <Border BorderBrush="Black" BorderThickness="0,0,0,1" Margin="0,0,0,15">
             <TextBlock FontWeight="Bold" FontSize="16">OPTIONS</TextBlock>
@@ -75,7 +74,7 @@
             </TextBox>
             <TextBlock Text="Preview:" FontWeight="Bold" Margin="0,5,0,0" />
             <TextBox Text="{Binding PatternPreview}" 
-                         IsReadOnly="True" FontStyle="Italic" />
+                         IsReadOnly="True" FontStyle="Italic" Foreground="#FFABADB3" />
         </StackPanel>
 
         <Border BorderBrush="Black" BorderThickness="0,0,0,1" Margin="0,15">
