@@ -52,7 +52,8 @@ namespace HDT.Plugins.VictoryCap
 			Settings = new Settings(assembly.GetManifestResourceStream(resourceName), "VictoryCap");
 			// other
 			_capture = new TrackerCapture();
-			MainViewModel = new MainViewModel();
+			Screenshots = new ObservableCollection<Screenshot>();
+			MainViewModel = new MainViewModel();			
 		}
 
 		public VictoryCap()
@@ -105,7 +106,7 @@ namespace HDT.Plugins.VictoryCap
 				// close any already open views
 				CloseMainView();
 				// take the screenshots
-				Screenshots = await Capture(mode);
+				await Capture(mode);
 				// check what game modes are enabled
 				if (IsModeEnabledForScreenshots(mode))
 				{
@@ -136,7 +137,9 @@ namespace HDT.Plugins.VictoryCap
 		public static void CloseMainView()
 		{
 			foreach (var view in Application.Current.Windows.OfType<MainView>())
+			{
 				view.Close();
+			}
 		}
 
 		public static void Notify(string title, string message, int autoClose, string icon = null, Action action = null)
@@ -146,14 +149,14 @@ namespace HDT.Plugins.VictoryCap
 				.AutoClose(autoClose);
 		}
 
-		private static async Task<ObservableCollection<Screenshot>> Capture(string mode)
+		private static async Task Capture(string mode)
 		{
-			ObservableCollection<Screenshot> screenshots = null;
 			try
 			{
-				if (Settings.Get("ScreenShot", "ScreenshotEnabled").Bool && IsModeEnabledForScreenshots(mode))
+				if (IsModeEnabledForScreenshots(mode))
 				{
-					screenshots = await _capture.CaptureSequence(
+					Screenshots.Clear();
+					await _capture.CaptureSequence(Screenshots,
 						Settings.Get("ScreenShot", "Delay").Int,
 						Settings.Get("ScreenShot", "OutputDir"),
 						Settings.Get("ScreenShot", "NumberOfImages").Int,
@@ -165,7 +168,7 @@ namespace HDT.Plugins.VictoryCap
 				Logger.Error(e);
 				Notify("Screen Capture Failed", e.Message, 15, "error", null);
 			}
-			return screenshots;
+
 		}
 
 		private static bool IsModeEnabledForScreenshots(string mode)

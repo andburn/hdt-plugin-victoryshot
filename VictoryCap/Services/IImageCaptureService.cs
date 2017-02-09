@@ -6,7 +6,7 @@ namespace HDT.Plugins.VictoryCap.Services
 {
 	public interface IImageCaptureService
 	{
-		Task<ObservableCollection<Screenshot>> CaptureSequence(int delay, string dir, int num, int delayBetween);
+		Task CaptureSequence(ObservableCollection<Screenshot> list, int delay, string dir, int num, int delayBetween);
 
 		bool IsCapturing { get; }
 	}

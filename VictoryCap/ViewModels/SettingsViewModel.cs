@@ -34,20 +34,6 @@ namespace HDT.Plugins.VictoryCap.ViewModels
 			}
 		}
 
-		// TODO don't use this now, remove
-		public bool UseAdvancedShot
-		{
-			get
-			{
-				return VictoryCap.Settings.Get("ScreenShot", "UseAdvancedShot").Bool;
-			}
-			set
-			{
-				VictoryCap.Settings.Set("ScreenShot", "UseAdvancedShot", value);
-				RaisePropertyChanged("UseAdvancedShot");
-			}
-		}
-
 		public int NumberOfImages
 		{
 			get
@@ -58,45 +44,6 @@ namespace HDT.Plugins.VictoryCap.ViewModels
 			{
 				VictoryCap.Settings.Set("ScreenShot", "NumberOfImages", value);
 				RaisePropertyChanged("NumberOfImages");
-			}
-		}
-
-		public bool WasNoteDialogOn
-		{
-			get
-			{
-				return VictoryCap.Settings.Get("ScreenShot", "WasNoteDialogOn").Bool;
-			}
-			set
-			{
-				VictoryCap.Settings.Set("ScreenShot", "WasNoteDialogOn", value);
-				RaisePropertyChanged("WasNoteDialogOn");
-			}
-		}
-
-		public bool WasNoteDialogDelayed
-		{
-			get
-			{
-				return VictoryCap.Settings.Get("ScreenShot", "WasNoteDialogDelayed").Bool;
-			}
-			set
-			{
-				VictoryCap.Settings.Set("ScreenShot", "WasNoteDialogDelayed", value);
-				RaisePropertyChanged("WasNoteDialogDelayed");
-			}
-		}
-
-		public bool WasNoteEnterChecked
-		{
-			get
-			{
-				return VictoryCap.Settings.Get("ScreenShot", "WasNoteEnterChecked").Bool;
-			}
-			set
-			{
-				VictoryCap.Settings.Set("ScreenShot", "WasNoteEnterChecked", value);
-				RaisePropertyChanged("WasNoteEnterChecked");
 			}
 		}
 
@@ -217,19 +164,6 @@ namespace HDT.Plugins.VictoryCap.ViewModels
 			}
 		}
 
-		public bool ScreenshotEnabled
-		{
-			get
-			{
-				return VictoryCap.Settings.Get("ScreenShot", "ScreenshotEnabled").Bool;
-			}
-			set
-			{
-				VictoryCap.Settings.Set("ScreenShot", "ScreenshotEnabled", value);
-				RaisePropertyChanged("ScreenshotEnabled");
-			}
-		}
-
 		private string _patternPreview;
 
 		public string PatternPreview
@@ -244,7 +178,6 @@ namespace HDT.Plugins.VictoryCap.ViewModels
 		public SettingsViewModel()
 		{
 			UpdatePattern(FileNamePattern);
-
 			PatternChangedCommand = new RelayCommand<string>(x => UpdatePattern(x));
 			ChooseDirCommand = new RelayCommand(() => ChooseOuputDir());
 		}

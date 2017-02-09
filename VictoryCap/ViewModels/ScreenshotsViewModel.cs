@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
@@ -7,33 +8,15 @@ using GalaSoft.MvvmLight.Command;
 using HDT.Plugins.Common.Services;
 using HDT.Plugins.VictoryCap.Models;
 using HDT.Plugins.VictoryCap.Services;
-using HDT.Plugins.VictoryCap.Utilities;
 
 namespace HDT.Plugins.VictoryCap.ViewModels
 {
 	public class ScreenshotsViewModel : ViewModelBase
 	{
-		private IDataRepository _repository;
 		private IImageCaptureService _cap;
 		private ILoggingService _log;
 
 		public ObservableCollection<Screenshot> Screenshots { get; set; }
-
-		private string _note;
-
-		public string Note
-		{
-			get { return _note; }
-			set { Set(() => Note, ref _note, value); }
-		}
-
-		private string _playerClass;
-
-		public string PlayerClass
-		{
-			get { return _playerClass; }
-			set { Set(() => PlayerClass, ref _playerClass, value); }
-		}
 
 		private bool _hasScreenshots;
 
@@ -41,12 +24,6 @@ namespace HDT.Plugins.VictoryCap.ViewModels
 		{
 			get { return _hasScreenshots; }
 			set { Set(() => HasScreenshots, ref _hasScreenshots, value); }
-		}
-
-		public bool HasNoScreenshots
-		{
-			get { return !_hasScreenshots; }
-			set { Set(() => HasNoScreenshots, ref _hasScreenshots, !value); }
 		}
 
 		private string _screenshotCountText;
@@ -57,53 +34,45 @@ namespace HDT.Plugins.VictoryCap.ViewModels
 			set { Set(() => ScreenshotCountText, ref _screenshotCountText, value); }
 		}
 
-		public RelayCommand WindowClosingCommand { get; private set; }
+		public RelayCommand SaveCommand { get; private set; }
 
 		public ScreenshotsViewModel()
-			: this(VictoryCap.Data, VictoryCap.Logger, new TrackerCapture())
+			: this(VictoryCap.Logger, new TrackerCapture())
 		{
 		}
 
-		public ScreenshotsViewModel(IDataRepository track, ILoggingService logger, IImageCaptureService capture)
+		public ScreenshotsViewModel(ILoggingService logger, IImageCaptureService capture)
 		{
-			HasScreenshots = false;
-
-			if (IsInDesignMode)
-			{
-				Screenshots = DesignerData.GenerateScreenshots();
-				HasScreenshots = true;
-			}
-			else
-			{
-				_repository = track;
-			}
 			_cap = capture;
 			_log = logger;
 
 			Screenshots = VictoryCap.Screenshots;
-			HasScreenshots = Screenshots?.Count > 0;
-			ScreenshotCountText = HasScreenshots ? $"{Screenshots.Count} Images Captured" : "No Caputres Available";
+			UpdateCount();
+			UpdateCountText();
 
-			PropertyChanged += ScreenshotsViewModel_PropertyChanged;
-
-			WindowClosingCommand = new RelayCommand(async () => await Closing());
+			Screenshots.CollectionChanged += Screenshots_CollectionChanged;
+			SaveCommand = new RelayCommand(async () => await Save());
 		}
 
-		public ScreenshotsViewModel(ObservableCollection<Screenshot> screenshots)
-			: this()
+		private void Screenshots_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-			Screenshots = screenshots;
+			UpdateCount();
+			UpdateCountText();
+		}
+
+		private void UpdateCountText()
+		{
+			ScreenshotCountText = HasScreenshots ?
+				$"{Screenshots.Count} Images Captured" :
+				"No Captures Available";
+		}
+
+		private void UpdateCount()
+		{
 			HasScreenshots = Screenshots != null && Screenshots.Any();
 		}
 
-		private void ScreenshotsViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-		{
-			// TODO remove
-			if (e.PropertyName == "Note")
-				_repository.UpdateGameNote(Note);
-		}
-
-		private async Task Closing()
+		private async Task Save()
 		{
 			var screenshot = Screenshots?.FirstOrDefault(s => s.IsSelected);
 			if (screenshot != null)
@@ -112,9 +81,11 @@ namespace HDT.Plugins.VictoryCap.ViewModels
 				try
 				{
 					await ViewModelHelper.SaveImage(screenshot);
-					// clear the screenshots
+					// show saved message
+					ScreenshotCountText = "Screenshot Saved";
+					// wait then clear screenshots
+					await Task.Delay(1000);
 					Screenshots.Clear();
-					// TODO prop change count, button enabled
 				}
 				catch (Exception e)
 				{

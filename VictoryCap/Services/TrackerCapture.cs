@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using HDT.Plugins.VictoryCap.Models;
@@ -28,7 +25,7 @@ namespace HDT.Plugins.VictoryCap.Services
 			}
 		}
 
-		public async Task<ObservableCollection<Screenshot>> CaptureSequence(int delaySeconds, string dir, int num, int delayBetween)
+		public async Task CaptureSequence(ObservableCollection<Screenshot> list, int delaySeconds, string dir, int num, int delayBetween)
 		{
 			IsCapturing = true;
 			VictoryCap.Logger.Info($"Capture Screen @ {delaySeconds}s then {delayBetween}ms");
@@ -53,12 +50,15 @@ namespace HDT.Plugins.VictoryCap.Services
 
 			IsCapturing = false;
 			// sort in reverse, last first
-			return new ObservableCollection<Screenshot>(screenshots.OrderByDescending(s => s.Index));
+			foreach(var s in screenshots.OrderByDescending(s => s.Index))
+			{
+				list.Add(s);
+			}
 		}
 
 		private static async Task<Bitmap> CaptureScreenShot()
 		{
 			return await VictoryCap.Client.GameScreenshot(true);
-		}		
+		}
 	}
 }
