@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace HDT.Plugins.VictoryCap.Utilities
+namespace HDT.Plugins.VictoryShot.Utilities
 {
 	public class NamingPattern
 	{
@@ -47,7 +47,7 @@ namespace HDT.Plugins.VictoryCap.Utilities
 				}
 				else
 				{
-					VictoryCap.Logger.Error("NamingPattern parse error: tokens and strings don't match");
+					VictoryShot.Logger.Error("NamingPattern parse error: tokens and strings don't match");
 				}
 			}
 			return list;

@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using HDT.Plugins.Common.Services;
-using HDT.Plugins.VictoryCap.Models;
-using HDT.Plugins.VictoryCap.Services;
+using HDT.Plugins.VictoryShot.Models;
+using HDT.Plugins.VictoryShot.Services;
 
-namespace HDT.Plugins.VictoryCap.ViewModels
+namespace HDT.Plugins.VictoryShot.ViewModels
 {
 	public class ScreenshotsViewModel : ViewModelBase
 	{
@@ -37,7 +37,7 @@ namespace HDT.Plugins.VictoryCap.ViewModels
 		public RelayCommand SaveCommand { get; private set; }
 
 		public ScreenshotsViewModel()
-			: this(VictoryCap.Logger, new TrackerCapture())
+			: this(VictoryShot.Logger, new TrackerCapture())
 		{
 		}
 
@@ -46,7 +46,7 @@ namespace HDT.Plugins.VictoryCap.ViewModels
 			_cap = capture;
 			_log = logger;
 
-			Screenshots = VictoryCap.Screenshots;
+			Screenshots = VictoryShot.Screenshots;
 			UpdateCount();
 			UpdateCountText();
 

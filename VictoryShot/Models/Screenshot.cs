@@ -2,7 +2,7 @@
 using System.Windows.Media.Imaging;
 using GalaSoft.MvvmLight;
 
-namespace HDT.Plugins.VictoryCap.Models
+namespace HDT.Plugins.VictoryShot.Models
 {
 	public class Screenshot : ObservableObject
 	{

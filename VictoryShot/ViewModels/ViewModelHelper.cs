@@ -3,10 +3,10 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Threading.Tasks;
-using HDT.Plugins.VictoryCap.Models;
-using HDT.Plugins.VictoryCap.Utilities;
+using HDT.Plugins.VictoryShot.Models;
+using HDT.Plugins.VictoryShot.Utilities;
 
-namespace HDT.Plugins.VictoryCap.ViewModels
+namespace HDT.Plugins.VictoryShot.ViewModels
 {
 	public class ViewModelHelper
 	{
@@ -17,22 +17,22 @@ namespace HDT.Plugins.VictoryCap.ViewModels
 		{
 			if (screenshot != null)
 			{
-				var dir = VictoryCap.Settings.Get("ScreenShot", "OutputDir").Value;
+				var dir = VictoryShot.Settings.Get("ScreenShot", "OutputDir").Value;
 				if (!Directory.Exists(dir))
 				{
-					VictoryCap.Logger.Info($"Output dir does not exist ({dir}), using desktop");
+					VictoryShot.Logger.Info($"Output dir does not exist ({dir}), using desktop");
 					dir = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 				}
 				var filename = DateTime.Now.ToString("dd.MM.yyyy_HH.mm");
 
-				var gameInfo = VictoryCap.Client.CurrentGameInfo();
+				var gameInfo = VictoryShot.Client.CurrentGameInfo();
 				if (gameInfo.Length == 4)
 				{
 					// save with game details
-					var pattern = VictoryCap.Settings.Get("ScreenShot", "FileNamePattern").Value;
+					var pattern = VictoryShot.Settings.Get("ScreenShot", "FileNamePattern").Value;
 					NamingPattern np = null;
 					if (!NamingPattern.TryParse(pattern, out np))
-						VictoryCap.Logger.Info("Invalid file name pattern, using default");
+						VictoryShot.Logger.Info("Invalid file name pattern, using default");
 					// TODO a cleaner way here
 					filename = np.Apply(gameInfo[0], gameInfo[1], gameInfo[2], gameInfo[3]);
 				}
@@ -47,7 +47,7 @@ namespace HDT.Plugins.VictoryCap.ViewModels
 
 		private static async Task SaveAsPng(Bitmap bmp, string file)
 		{
-			VictoryCap.Logger.Info($"Saving screenshot to '{file}'");
+			VictoryShot.Logger.Info($"Saving screenshot to '{file}'");
 			await Task.Run(() => bmp.Save(file + ".png", ImageFormat.Png));
 		}
 	}

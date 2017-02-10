@@ -3,9 +3,9 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using System.Windows.Resources;
-using HDT.Plugins.VictoryCap.Models;
+using HDT.Plugins.VictoryShot.Models;
 
-namespace HDT.Plugins.VictoryCap.Utilities
+namespace HDT.Plugins.VictoryShot.Utilities
 {
 	public class DesignerData
 	{
@@ -14,7 +14,7 @@ namespace HDT.Plugins.VictoryCap.Utilities
 
 		static DesignerData() {
 			StreamResourceInfo sri = Application.GetResourceStream(
-					new Uri("pack://application:,,,/VictoryCap;component/Resources/thumb_sample.bmp"));
+					new Uri("pack://application:,,,/VictoryShot;component/Resources/thumb_sample.bmp"));
 			bmp = new BitmapImage();
 			bmp.BeginInit();
 			bmp.StreamSource = sri.Stream;

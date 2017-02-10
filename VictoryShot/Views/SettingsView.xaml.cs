@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Navigation;
 
-namespace HDT.Plugins.VictoryCap.Views
+namespace HDT.Plugins.VictoryShot.Views
 {
 	public partial class SettingsView : UserControl
 	{

@@ -12,16 +12,16 @@ using HDT.Plugins.Common.Plugin;
 using HDT.Plugins.Common.Providers;
 using HDT.Plugins.Common.Services;
 using HDT.Plugins.Common.Settings;
-using HDT.Plugins.VictoryCap.Models;
-using HDT.Plugins.VictoryCap.Services;
-using HDT.Plugins.VictoryCap.ViewModels;
-using HDT.Plugins.VictoryCap.Views;
+using HDT.Plugins.VictoryShot.Models;
+using HDT.Plugins.VictoryShot.Services;
+using HDT.Plugins.VictoryShot.ViewModels;
+using HDT.Plugins.VictoryShot.Views;
 
-namespace HDT.Plugins.VictoryCap
+namespace HDT.Plugins.VictoryShot
 {
-	[Name("Victory Cap")]
+	[Name("Victory Shot")]
 	[Description("Takes screen shots of the victory/defeat screens.")]
-	public class VictoryCap : PluginBase
+	public class VictoryShot : PluginBase
 	{
 		public static readonly IUpdateService Updater;
 		public static readonly ILoggingService Logger;
@@ -36,7 +36,7 @@ namespace HDT.Plugins.VictoryCap
 		public static ObservableCollection<Screenshot> Screenshots;
 		public static MainViewModel MainViewModel;
 
-		static VictoryCap()
+		static VictoryShot()
 		{
 			// initialize services
 			var resolver = Injector.Instance.Container;
@@ -48,15 +48,15 @@ namespace HDT.Plugins.VictoryCap
 			Config = resolver.GetInstance<IConfigurationRepository>();
 			// load settings
 			var assembly = Assembly.GetExecutingAssembly();
-			var resourceName = "HDT.Plugins.VictoryCap.Resources.Default.ini";
-			Settings = new Settings(assembly.GetManifestResourceStream(resourceName), "VictoryCap");
+			var resourceName = "HDT.Plugins.VictoryShot.Resources.Default.ini";
+			Settings = new Settings(assembly.GetManifestResourceStream(resourceName), "VictoryShot");
 			// other
 			_capture = new TrackerCapture();
 			Screenshots = new ObservableCollection<Screenshot>();
 			MainViewModel = new MainViewModel();			
 		}
 
-		public VictoryCap()
+		public VictoryShot()
 			: base(Assembly.GetExecutingAssembly())
 		{
 		}
@@ -88,7 +88,7 @@ namespace HDT.Plugins.VictoryCap
 		public override async void OnLoad()
 		{
 			// check for plugin update
-			await UpdateCheck("VictoryCap", "hdt-plugin-victorycap");
+			await UpdateCheck("VictoryShot", "hdt-plugin-victoryshot");
 			// set the action to run on the game end event
 			Events.OnGameEnd(Run);
 		}
@@ -117,7 +117,7 @@ namespace HDT.Plugins.VictoryCap
 			catch (Exception e)
 			{
 				Logger.Error(e);
-				Notify("VictoryCap Error", e.Message, 15, "error", null);
+				Notify("VictoryShot Error", e.Message, 15, "error", null);
 			}
 		}
 

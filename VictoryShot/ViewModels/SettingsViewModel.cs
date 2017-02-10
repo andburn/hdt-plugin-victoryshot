@@ -1,10 +1,10 @@
 ﻿using System.IO;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using HDT.Plugins.VictoryCap.Utilities;
+using HDT.Plugins.VictoryShot.Utilities;
 using Ookii.Dialogs.Wpf;
 
-namespace HDT.Plugins.VictoryCap.ViewModels
+namespace HDT.Plugins.VictoryShot.ViewModels
 {
 	public class SettingsViewModel : ViewModelBase
 	{
@@ -12,11 +12,11 @@ namespace HDT.Plugins.VictoryCap.ViewModels
 		{
 			get
 			{
-				return VictoryCap.Settings.Get("ScreenShot", "OutputDir").Value;
+				return VictoryShot.Settings.Get("ScreenShot", "OutputDir").Value;
 			}
 			set
 			{
-				VictoryCap.Settings.Set("ScreenShot", "OutputDir", value);
+				VictoryShot.Settings.Set("ScreenShot", "OutputDir", value);
 				RaisePropertyChanged("OutputDir");
 			}
 		}
@@ -25,11 +25,11 @@ namespace HDT.Plugins.VictoryCap.ViewModels
 		{
 			get
 			{
-				return VictoryCap.Settings.Get("ScreenShot", "Delay").Int;
+				return VictoryShot.Settings.Get("ScreenShot", "Delay").Int;
 			}
 			set
 			{
-				VictoryCap.Settings.Set("ScreenShot", "Delay", value);
+				VictoryShot.Settings.Set("ScreenShot", "Delay", value);
 				RaisePropertyChanged("Delay");
 			}
 		}
@@ -38,11 +38,11 @@ namespace HDT.Plugins.VictoryCap.ViewModels
 		{
 			get
 			{
-				return VictoryCap.Settings.Get("ScreenShot", "NumberOfImages").Int;
+				return VictoryShot.Settings.Get("ScreenShot", "NumberOfImages").Int;
 			}
 			set
 			{
-				VictoryCap.Settings.Set("ScreenShot", "NumberOfImages", value);
+				VictoryShot.Settings.Set("ScreenShot", "NumberOfImages", value);
 				RaisePropertyChanged("NumberOfImages");
 			}
 		}
@@ -51,11 +51,11 @@ namespace HDT.Plugins.VictoryCap.ViewModels
 		{
 			get
 			{
-				return VictoryCap.Settings.Get("ScreenShot", "DelayBetweenShots").Int;
+				return VictoryShot.Settings.Get("ScreenShot", "DelayBetweenShots").Int;
 			}
 			set
 			{
-				VictoryCap.Settings.Set("ScreenShot", "DelayBetweenShots", value);
+				VictoryShot.Settings.Set("ScreenShot", "DelayBetweenShots", value);
 				RaisePropertyChanged("DelayBetweenShots");
 			}
 		}
@@ -64,11 +64,11 @@ namespace HDT.Plugins.VictoryCap.ViewModels
 		{
 			get
 			{
-				return VictoryCap.Settings.Get("ScreenShot", "RecordArena").Bool;
+				return VictoryShot.Settings.Get("ScreenShot", "RecordArena").Bool;
 			}
 			set
 			{
-				VictoryCap.Settings.Set("ScreenShot", "RecordArena", value);
+				VictoryShot.Settings.Set("ScreenShot", "RecordArena", value);
 				RaisePropertyChanged("RecordArena");
 			}
 		}
@@ -77,11 +77,11 @@ namespace HDT.Plugins.VictoryCap.ViewModels
 		{
 			get
 			{
-				return VictoryCap.Settings.Get("ScreenShot", "RecordBrawl").Bool;
+				return VictoryShot.Settings.Get("ScreenShot", "RecordBrawl").Bool;
 			}
 			set
 			{
-				VictoryCap.Settings.Set("ScreenShot", "RecordBrawl", value);
+				VictoryShot.Settings.Set("ScreenShot", "RecordBrawl", value);
 				RaisePropertyChanged("RecordBrawl");
 			}
 		}
@@ -90,11 +90,11 @@ namespace HDT.Plugins.VictoryCap.ViewModels
 		{
 			get
 			{
-				return VictoryCap.Settings.Get("ScreenShot", "RecordCasual").Bool;
+				return VictoryShot.Settings.Get("ScreenShot", "RecordCasual").Bool;
 			}
 			set
 			{
-				VictoryCap.Settings.Set("ScreenShot", "RecordCasual", value);
+				VictoryShot.Settings.Set("ScreenShot", "RecordCasual", value);
 				RaisePropertyChanged("RecordCasual");
 			}
 		}
@@ -103,11 +103,11 @@ namespace HDT.Plugins.VictoryCap.ViewModels
 		{
 			get
 			{
-				return VictoryCap.Settings.Get("ScreenShot", "RecordFriendly").Bool;
+				return VictoryShot.Settings.Get("ScreenShot", "RecordFriendly").Bool;
 			}
 			set
 			{
-				VictoryCap.Settings.Set("ScreenShot", "RecordFriendly", value);
+				VictoryShot.Settings.Set("ScreenShot", "RecordFriendly", value);
 				RaisePropertyChanged("RecordFriendly");
 			}
 		}
@@ -116,11 +116,11 @@ namespace HDT.Plugins.VictoryCap.ViewModels
 		{
 			get
 			{
-				return VictoryCap.Settings.Get("ScreenShot", "RecordOther").Bool;
+				return VictoryShot.Settings.Get("ScreenShot", "RecordOther").Bool;
 			}
 			set
 			{
-				VictoryCap.Settings.Set("ScreenShot", "RecordOther", value);
+				VictoryShot.Settings.Set("ScreenShot", "RecordOther", value);
 				RaisePropertyChanged("RecordOther");
 			}
 		}
@@ -129,11 +129,11 @@ namespace HDT.Plugins.VictoryCap.ViewModels
 		{
 			get
 			{
-				return VictoryCap.Settings.Get("ScreenShot", "RecordPractice").Bool;
+				return VictoryShot.Settings.Get("ScreenShot", "RecordPractice").Bool;
 			}
 			set
 			{
-				VictoryCap.Settings.Set("ScreenShot", "RecordPractice", value);
+				VictoryShot.Settings.Set("ScreenShot", "RecordPractice", value);
 				RaisePropertyChanged("RecordPractice");
 			}
 		}
@@ -142,11 +142,11 @@ namespace HDT.Plugins.VictoryCap.ViewModels
 		{
 			get
 			{
-				return VictoryCap.Settings.Get("ScreenShot", "RecordRanked").Bool;
+				return VictoryShot.Settings.Get("ScreenShot", "RecordRanked").Bool;
 			}
 			set
 			{
-				VictoryCap.Settings.Set("ScreenShot", "RecordRanked", value);
+				VictoryShot.Settings.Set("ScreenShot", "RecordRanked", value);
 				RaisePropertyChanged("RecordRanked");
 			}
 		}
@@ -155,11 +155,11 @@ namespace HDT.Plugins.VictoryCap.ViewModels
 		{
 			get
 			{
-				return VictoryCap.Settings.Get("ScreenShot", "FileNamePattern").Value;
+				return VictoryShot.Settings.Get("ScreenShot", "FileNamePattern").Value;
 			}
 			set
 			{
-				VictoryCap.Settings.Set("ScreenShot", "FileNamePattern", value);
+				VictoryShot.Settings.Set("ScreenShot", "FileNamePattern", value);
 				RaisePropertyChanged("FileNamePattern");
 			}
 		}
@@ -189,13 +189,13 @@ namespace HDT.Plugins.VictoryCap.ViewModels
 			dialog.UseDescriptionForTitle = true;
 
 			// set initial directory to setting if exists
-			var current = VictoryCap.Settings.Get("ScreenShot", "OutputDir").Value;
+			var current = VictoryShot.Settings.Get("ScreenShot", "OutputDir").Value;
 			if (Directory.Exists(current))
 				dialog.SelectedPath = current;
 
 			if ((bool)dialog.ShowDialog())
 			{
-				VictoryCap.Settings.Set("ScreenShot", "OutputDir", dialog.SelectedPath);
+				VictoryShot.Settings.Set("ScreenShot", "OutputDir", dialog.SelectedPath);
 				RaisePropertyChanged("OutputDir");
 			}
 		}

@@ -3,10 +3,10 @@ using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
-using HDT.Plugins.VictoryCap.Models;
-using HDT.Plugins.VictoryCap.Utilities;
+using HDT.Plugins.VictoryShot.Models;
+using HDT.Plugins.VictoryShot.Utilities;
 
-namespace HDT.Plugins.VictoryCap.Services
+namespace HDT.Plugins.VictoryShot.Services
 {
 	public class TrackerCapture : IImageCaptureService
 	{
@@ -28,7 +28,7 @@ namespace HDT.Plugins.VictoryCap.Services
 		public async Task CaptureSequence(ObservableCollection<Screenshot> list, int delaySeconds, string dir, int num, int delayBetween)
 		{
 			IsCapturing = true;
-			VictoryCap.Logger.Info($"Capture Screen @ {delaySeconds}s then {delayBetween}ms");
+			VictoryShot.Logger.Info($"Capture Screen @ {delaySeconds}s then {delayBetween}ms");
 
 			List<Screenshot> screenshots = new List<Screenshot>();
 
@@ -43,7 +43,7 @@ namespace HDT.Plugins.VictoryCap.Services
 				{
 					var thumb = img.ResizeImage();
 					screenshots.Add(new Screenshot(img, thumb.ToMediaImage(), i + 1));
-					VictoryCap.Logger.Debug($"Saving image #{i}");
+					VictoryShot.Logger.Debug($"Saving image #{i}");
 				}
 				await Task.Delay(delayBetween);
 			}
@@ -58,7 +58,7 @@ namespace HDT.Plugins.VictoryCap.Services
 
 		private static async Task<Bitmap> CaptureScreenShot()
 		{
-			return await VictoryCap.Client.GameScreenshot(true);
+			return await VictoryShot.Client.GameScreenshot(true);
 		}
 	}
 }

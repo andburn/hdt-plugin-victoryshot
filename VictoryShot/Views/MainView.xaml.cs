@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace HDT.Plugins.VictoryCap.Views
+namespace HDT.Plugins.VictoryShot.Views
 {
 	public partial class MainView : Window
 	{

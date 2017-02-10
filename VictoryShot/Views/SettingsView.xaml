@@ -1,10 +1,10 @@
-﻿<UserControl x:Class="HDT.Plugins.VictoryCap.Views.SettingsView"
+﻿<UserControl x:Class="HDT.Plugins.VictoryShot.Views.SettingsView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-             xmlns:local="clr-namespace:HDT.Plugins.VictoryCap.Views"
+             xmlns:local="clr-namespace:HDT.Plugins.VictoryShot.Views"
              mc:Ignorable="d" d:DesignWidth="300">
     <StackPanel Margin="15">
 
@@ -133,7 +133,7 @@
             <TextBlock Height="35" TextWrapping="Wrap">
                 See the 
                 <Hyperlink 
-                    NavigateUri="https://github.com/andburn/hdt-plugin-victorycap/blob/master/README.md" 
+                    NavigateUri="https://github.com/andburn/hdt-plugin-victoryshot/blob/master/README.md" 
                     RequestNavigate="Hyperlink_Navigate">README</Hyperlink>
                 for more information about the settings and their values.
             </TextBlock>

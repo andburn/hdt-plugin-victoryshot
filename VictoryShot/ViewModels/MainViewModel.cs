@@ -2,7 +2,7 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 
-namespace HDT.Plugins.VictoryCap.ViewModels
+namespace HDT.Plugins.VictoryShot.ViewModels
 {
 	public class MainViewModel : ViewModelBase
 	{

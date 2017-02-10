@@ -1,8 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using HDT.Plugins.VictoryCap.Models;
+using HDT.Plugins.VictoryShot.Models;
 
-namespace HDT.Plugins.VictoryCap.Services
+namespace HDT.Plugins.VictoryShot.Services
 {
 	public interface IImageCaptureService
 	{
