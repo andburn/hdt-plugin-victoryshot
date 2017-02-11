@@ -20,7 +20,7 @@ using HDT.Plugins.VictoryShot.Views;
 namespace HDT.Plugins.VictoryShot
 {
 	[Name("Victory Shot")]
-	[Description("Takes screen shots of the victory/defeat screens.")]
+	[Description("Helps in automating screen shots of the victory/defeat screens after a match.")]
 	public class VictoryShot : PluginBase
 	{
 		public static readonly IUpdateService Updater;
@@ -29,7 +29,7 @@ namespace HDT.Plugins.VictoryShot
 		public static readonly IEventsService Events;
 		public static readonly IGameClientService Client;
 		public static readonly IConfigurationRepository Config;
-		public static readonly Settings Settings;		
+		public static readonly Settings Settings;
 
 		private static IImageCaptureService _capture;
 
@@ -53,7 +53,7 @@ namespace HDT.Plugins.VictoryShot
 			// other
 			_capture = new TrackerCapture();
 			Screenshots = new ObservableCollection<Screenshot>();
-			MainViewModel = new MainViewModel();			
+			MainViewModel = new MainViewModel();
 		}
 
 		public VictoryShot()
@@ -75,7 +75,7 @@ namespace HDT.Plugins.VictoryShot
 
 		private MenuItem CreatePluginMenu()
 		{
-			var pm = new PluginMenu("Victory Cap", "trophy", 
+			var pm = new PluginMenu("Victory Cap", "trophy",
 				new RelayCommand(() => ShowMainView(ViewModelHelper.SettingsString)));
 			return pm.Menu;
 		}
@@ -103,8 +103,6 @@ namespace HDT.Plugins.VictoryShot
 			try
 			{
 				var mode = Data.GetGameMode();
-				// close any already open views
-				CloseMainView();
 				// take the screenshots
 				await Capture(mode);
 				// check what game modes are enabled
@@ -123,11 +121,20 @@ namespace HDT.Plugins.VictoryShot
 
 		private static void ShowMainView(string location)
 		{
-			// close any open windows
-			CloseMainView();
-			// create view
-			MainView view = new MainView();
-			view.DataContext = MainViewModel;
+			MainView view = null;
+			// check for any open windows
+			var open = Application.Current.Windows.OfType<MainView>();
+			if (open.Count() == 1)
+			{
+				view = open.FirstOrDefault();
+			}
+			else
+			{
+				CloseMainView();
+				// create view
+				view = new MainView();
+				view.DataContext = MainViewModel;
+			}
 			view.Show();
 			view.Activate();
 			// navigate to location
@@ -157,10 +164,10 @@ namespace HDT.Plugins.VictoryShot
 				{
 					Screenshots.Clear();
 					await _capture.CaptureSequence(Screenshots,
-						Settings.Get("ScreenShot", "Delay").Int,
-						Settings.Get("ScreenShot", "OutputDir"),
-						Settings.Get("ScreenShot", "NumberOfImages").Int,
-						Settings.Get("ScreenShot", "DelayBetweenShots").Int);
+						Settings.Get("Delay").Int,
+						Settings.Get("OutputDir"),
+						Settings.Get("NumberOfImages").Int,
+						Settings.Get("DelayBetweenShots").Int);
 				}
 			}
 			catch (Exception e)
@@ -168,7 +175,6 @@ namespace HDT.Plugins.VictoryShot
 				Logger.Error(e);
 				Notify("Screen Capture Failed", e.Message, 15, "error", null);
 			}
-
 		}
 
 		private static bool IsModeEnabledForScreenshots(string mode)
@@ -176,26 +182,26 @@ namespace HDT.Plugins.VictoryShot
 			switch (mode.ToLowerInvariant())
 			{
 				case "ranked":
-					return Settings.Get("ScreenShot", "RecordRanked").Bool;
+					return Settings.Get("RecordRanked").Bool;
 
 				case "casual":
-					return Settings.Get("ScreenShot", "RecordCasual").Bool;
+					return Settings.Get("RecordCasual").Bool;
 
 				case "arena":
-					return Settings.Get("ScreenShot", "RecordArena").Bool;
+					return Settings.Get("RecordArena").Bool;
 
 				case "brawl":
-					return Settings.Get("ScreenShot", "RecordBrawl").Bool;
+					return Settings.Get("RecordBrawl").Bool;
 
 				case "friendly":
-					return Settings.Get("ScreenShot", "RecordFriendly").Bool;
+					return Settings.Get("RecordFriendly").Bool;
 
 				case "practice":
-					return Settings.Get("ScreenShot", "RecordPractice").Bool;
+					return Settings.Get("RecordPractice").Bool;
 
 				case "spectator":
 				case "none":
-					return Settings.Get("ScreenShot", "RecordOther").Bool;
+					return Settings.Get("RecordOther").Bool;
 
 				default:
 					return false;
@@ -236,7 +242,7 @@ namespace HDT.Plugins.VictoryShot
 			}
 			catch (Exception e)
 			{
-				Logger.Error(e);
+				Logger.Error($"Github update failed: {e.Message}");
 			}
 		}
 	}

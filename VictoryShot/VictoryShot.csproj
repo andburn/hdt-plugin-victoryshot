@@ -72,7 +72,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IImageCaptureService.cs" />
     <Compile Include="Services\TrackerCapture.cs" />
-    <Compile Include="Utilities\DesignerData.cs" />
     <Compile Include="Utilities\Extensions.cs" />
     <Compile Include="Utilities\NamingPattern.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
@@ -91,9 +90,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Default.ini" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\thumb_sample.bmp" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Views\ScreenshotsView.xaml">

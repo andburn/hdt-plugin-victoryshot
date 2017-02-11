@@ -10,24 +10,8 @@ namespace HDT.Plugins.VictoryShot.Services
 {
 	public class TrackerCapture : IImageCaptureService
 	{
-		private bool isCapturing;
-
-		public bool IsCapturing
-		{
-			get
-			{
-				return isCapturing;
-			}
-
-			private set
-			{
-				isCapturing = value;
-			}
-		}
-
 		public async Task CaptureSequence(ObservableCollection<Screenshot> list, int delaySeconds, string dir, int num, int delayBetween)
 		{
-			IsCapturing = true;
 			VictoryShot.Logger.Info($"Capture Screen @ {delaySeconds}s then {delayBetween}ms");
 
 			List<Screenshot> screenshots = new List<Screenshot>();
@@ -48,7 +32,6 @@ namespace HDT.Plugins.VictoryShot.Services
 				await Task.Delay(delayBetween);
 			}
 
-			IsCapturing = false;
 			// sort in reverse, last first
 			foreach(var s in screenshots.OrderByDescending(s => s.Index))
 			{
