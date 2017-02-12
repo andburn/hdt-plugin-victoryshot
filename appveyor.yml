@@ -1,0 +1,21 @@
+version: 1.0.{build}
+configuration: Release
+platform: x86
+before_build:
+- ps: .\Scripts\ci_paket.ps1
+build:
+  project: VictoryShot.sln
+  verbosity: minimal
+after_build:
+- ps: .\Scripts\ci_artifacts.ps1
+deploy:
+- provider: GitHub
+  tag: $(APPVEYOR_REPO_TAG_NAME)
+  release: Update v$(APPVEYOR_REPO_TAG_NAME)
+  description: description
+  auth_token:
+    secure: OpNj+lrWxBC7mLLsC2F7BqFrwrOBXsgqelz6t0wK8pqIBjO7Imn9Adp+k6OuNbCN
+  artifact: Release
+  draft: true
+  on:
+    APPVEYOR_REPO_TAG: true
