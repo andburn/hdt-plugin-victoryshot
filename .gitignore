@@ -5,6 +5,7 @@
 # paket
 .paket/*
 paket.local
+paket.lock
 /paket-files
 !.paket/paket.bootstrapper.exe
 
