@@ -5,7 +5,7 @@ before_build:
 - ps: .\Scripts\ci_paket.ps1
 build:
   project: VictoryShot.sln
-  verbosity: detailed
+  verbosity: minimal
 after_build:
 - ps: .\Scripts\ci_artifacts.ps1
 deploy:
