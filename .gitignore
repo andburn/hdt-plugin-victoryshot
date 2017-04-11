@@ -1,14 +1,5 @@
-# tests
-/coverage
-/*.xml
-
-# paket
-.paket/*
-paket.local
-paket.lock
-/paket-files
-!.paket/paket.bootstrapper.exe
-
+# bootstrapped common lib
+/Common
 # power shell scripts
 /*.ps1
 
