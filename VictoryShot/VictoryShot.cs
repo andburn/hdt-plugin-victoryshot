@@ -135,7 +135,11 @@ namespace HDT.Plugins.VictoryShot
 				view = new MainView();
 				view.DataContext = MainViewModel;
 			}
+			// show the window, and restore if needed
 			view.Show();
+			Logger.Info("window state: " + view.WindowState);
+			if (view.WindowState == WindowState.Minimized)
+				view.WindowState = WindowState.Normal;
 			view.Activate();
 			// navigate to location
 			MainViewModel.OnNavigation(location);
