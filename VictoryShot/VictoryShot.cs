@@ -16,6 +16,7 @@ using HDT.Plugins.VictoryShot.Models;
 using HDT.Plugins.VictoryShot.Services;
 using HDT.Plugins.VictoryShot.ViewModels;
 using HDT.Plugins.VictoryShot.Views;
+using HDT.Plugins.VictoryShot.Utilities;
 
 namespace HDT.Plugins.VictoryShot
 {
@@ -168,10 +169,10 @@ namespace HDT.Plugins.VictoryShot
 				{
 					Screenshots.Clear();
 					await _capture.CaptureSequence(Screenshots,
-						Settings.Get("Delay").Int,
-						Settings.Get("OutputDir"),
-						Settings.Get("NumberOfImages").Int,
-						Settings.Get("DelayBetweenShots").Int);
+						Settings.Get(Strings.Delay).Int,
+						Settings.Get(Strings.OutputDir),
+						Settings.Get(Strings.NumberOfImages).Int,
+						Settings.Get(Strings.DelayBetweenShots).Int);
 				}
 			}
 			catch (Exception e)
@@ -186,26 +187,26 @@ namespace HDT.Plugins.VictoryShot
 			switch (mode.ToLowerInvariant())
 			{
 				case "ranked":
-					return Settings.Get("RecordRanked").Bool;
+					return Settings.Get(Strings.RecordRanked).Bool;
 
 				case "casual":
-					return Settings.Get("RecordCasual").Bool;
+					return Settings.Get(Strings.RecordCasual).Bool;
 
 				case "arena":
-					return Settings.Get("RecordArena").Bool;
+					return Settings.Get(Strings.RecordArena).Bool;
 
 				case "brawl":
-					return Settings.Get("RecordBrawl").Bool;
+					return Settings.Get(Strings.RecordBrawl).Bool;
 
 				case "friendly":
-					return Settings.Get("RecordFriendly").Bool;
+					return Settings.Get(Strings.RecordFriendly).Bool;
 
 				case "practice":
-					return Settings.Get("RecordPractice").Bool;
+					return Settings.Get(Strings.RecordPractice).Bool;
 
 				case "spectator":
 				case "none":
-					return Settings.Get("RecordOther").Bool;
+					return Settings.Get(Strings.RecordOther).Bool;
 
 				default:
 					return false;

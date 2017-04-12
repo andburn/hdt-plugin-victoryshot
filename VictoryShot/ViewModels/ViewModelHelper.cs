@@ -17,7 +17,7 @@ namespace HDT.Plugins.VictoryShot.ViewModels
 		{
 			if (screenshot != null)
 			{
-				var dir = VictoryShot.Settings.Get("OutputDir").Value;
+				var dir = VictoryShot.Settings.Get(Strings.OutputDir).Value;
 				if (!Directory.Exists(dir))
 				{
 					VictoryShot.Logger.Info($"Output dir does not exist ({dir}), using desktop");
@@ -29,7 +29,7 @@ namespace HDT.Plugins.VictoryShot.ViewModels
 				if (gameInfo.Length == 4)
 				{
 					// save with game details
-					var pattern = VictoryShot.Settings.Get("FileNamePattern").Value;
+					var pattern = VictoryShot.Settings.Get(Strings.FileNamePattern).Value;
 					NamingPattern np = null;
 					if (!NamingPattern.TryParse(pattern, out np))
 						VictoryShot.Logger.Info("Invalid file name pattern, using default");

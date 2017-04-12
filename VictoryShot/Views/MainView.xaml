@@ -25,7 +25,7 @@
     <DockPanel>
         <DockPanel DockPanel.Dock="Top" Height="60">
             <DockPanel.Background>
-                <ImageBrush ImageSource="pack://application:,,,/VictoryShot;component/Resources/hdt-banner.png" 
+                <ImageBrush ImageSource="pack://application:,,,/HDT.Plugins.Common;component/Resources/hdt-banner.png" 
                             TileMode="Tile" Stretch="UniformToFill"/>
             </DockPanel.Background>
             <controls:MoonTextButton DockPanel.Dock="Right" Margin="4,4,6,4"

@@ -91,6 +91,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Utilities\Strings.cs" />
     <Compile Include="VictoryShot.cs" />
     <Compile Include="MergedTrigger.cs" />
     <Compile Include="Models\Screenshot.cs" />
@@ -134,7 +135,6 @@
     <Content Include="FodyWeavers.xml">
       <Paket>True</Paket>
     </Content>
-    <Resource Include="Resources\hdt-banner.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

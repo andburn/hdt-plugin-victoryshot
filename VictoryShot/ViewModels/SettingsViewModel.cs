@@ -12,12 +12,12 @@ namespace HDT.Plugins.VictoryShot.ViewModels
 		{
 			get
 			{
-				return VictoryShot.Settings.Get("OutputDir").Value;
+				return VictoryShot.Settings.Get(Strings.OutputDir).Value;
 			}
 			set
 			{
-				VictoryShot.Settings.Set("OutputDir", value);
-				RaisePropertyChanged("OutputDir");
+				VictoryShot.Settings.Set(Strings.OutputDir, value);
+				RaisePropertyChanged(Strings.OutputDir);
 			}
 		}
 
@@ -25,12 +25,12 @@ namespace HDT.Plugins.VictoryShot.ViewModels
 		{
 			get
 			{
-				return VictoryShot.Settings.Get("Delay").Int;
+				return VictoryShot.Settings.Get(Strings.Delay).Int;
 			}
 			set
 			{
-				VictoryShot.Settings.Set("Delay", value);
-				RaisePropertyChanged("Delay");
+				VictoryShot.Settings.Set(Strings.Delay, value);
+				RaisePropertyChanged(Strings.Delay);
 			}
 		}
 
@@ -38,12 +38,12 @@ namespace HDT.Plugins.VictoryShot.ViewModels
 		{
 			get
 			{
-				return VictoryShot.Settings.Get("NumberOfImages").Int;
+				return VictoryShot.Settings.Get(Strings.NumberOfImages).Int;
 			}
 			set
 			{
-				VictoryShot.Settings.Set("NumberOfImages", value);
-				RaisePropertyChanged("NumberOfImages");
+				VictoryShot.Settings.Set(Strings.NumberOfImages, value);
+				RaisePropertyChanged(Strings.NumberOfImages);
 			}
 		}
 
@@ -51,12 +51,12 @@ namespace HDT.Plugins.VictoryShot.ViewModels
 		{
 			get
 			{
-				return VictoryShot.Settings.Get("DelayBetweenShots").Int;
+				return VictoryShot.Settings.Get(Strings.DelayBetweenShots).Int;
 			}
 			set
 			{
-				VictoryShot.Settings.Set("DelayBetweenShots", value);
-				RaisePropertyChanged("DelayBetweenShots");
+				VictoryShot.Settings.Set(Strings.DelayBetweenShots, value);
+				RaisePropertyChanged(Strings.DelayBetweenShots);
 			}
 		}
 
@@ -64,12 +64,12 @@ namespace HDT.Plugins.VictoryShot.ViewModels
 		{
 			get
 			{
-				return VictoryShot.Settings.Get("RecordArena").Bool;
+				return VictoryShot.Settings.Get(Strings.RecordArena).Bool;
 			}
 			set
 			{
-				VictoryShot.Settings.Set("RecordArena", value);
-				RaisePropertyChanged("RecordArena");
+				VictoryShot.Settings.Set(Strings.RecordArena, value);
+				RaisePropertyChanged(Strings.RecordArena);
 			}
 		}
 
@@ -77,12 +77,12 @@ namespace HDT.Plugins.VictoryShot.ViewModels
 		{
 			get
 			{
-				return VictoryShot.Settings.Get("RecordBrawl").Bool;
+				return VictoryShot.Settings.Get(Strings.RecordBrawl).Bool;
 			}
 			set
 			{
-				VictoryShot.Settings.Set("RecordBrawl", value);
-				RaisePropertyChanged("RecordBrawl");
+				VictoryShot.Settings.Set(Strings.RecordBrawl, value);
+				RaisePropertyChanged(Strings.RecordBrawl);
 			}
 		}
 
@@ -90,12 +90,12 @@ namespace HDT.Plugins.VictoryShot.ViewModels
 		{
 			get
 			{
-				return VictoryShot.Settings.Get("RecordCasual").Bool;
+				return VictoryShot.Settings.Get(Strings.RecordCasual).Bool;
 			}
 			set
 			{
-				VictoryShot.Settings.Set("RecordCasual", value);
-				RaisePropertyChanged("RecordCasual");
+				VictoryShot.Settings.Set(Strings.RecordCasual, value);
+				RaisePropertyChanged(Strings.RecordCasual);
 			}
 		}
 
@@ -103,12 +103,12 @@ namespace HDT.Plugins.VictoryShot.ViewModels
 		{
 			get
 			{
-				return VictoryShot.Settings.Get("RecordFriendly").Bool;
+				return VictoryShot.Settings.Get(Strings.RecordFriendly).Bool;
 			}
 			set
 			{
-				VictoryShot.Settings.Set("RecordFriendly", value);
-				RaisePropertyChanged("RecordFriendly");
+				VictoryShot.Settings.Set(Strings.RecordFriendly, value);
+				RaisePropertyChanged(Strings.RecordFriendly);
 			}
 		}
 
@@ -116,12 +116,12 @@ namespace HDT.Plugins.VictoryShot.ViewModels
 		{
 			get
 			{
-				return VictoryShot.Settings.Get("RecordOther").Bool;
+				return VictoryShot.Settings.Get(Strings.RecordOther).Bool;
 			}
 			set
 			{
-				VictoryShot.Settings.Set("RecordOther", value);
-				RaisePropertyChanged("RecordOther");
+				VictoryShot.Settings.Set(Strings.RecordOther, value);
+				RaisePropertyChanged(Strings.RecordOther);
 			}
 		}
 
@@ -129,12 +129,12 @@ namespace HDT.Plugins.VictoryShot.ViewModels
 		{
 			get
 			{
-				return VictoryShot.Settings.Get("RecordPractice").Bool;
+				return VictoryShot.Settings.Get(Strings.RecordPractice).Bool;
 			}
 			set
 			{
-				VictoryShot.Settings.Set("RecordPractice", value);
-				RaisePropertyChanged("RecordPractice");
+				VictoryShot.Settings.Set(Strings.RecordPractice, value);
+				RaisePropertyChanged(Strings.RecordPractice);
 			}
 		}
 
@@ -142,12 +142,12 @@ namespace HDT.Plugins.VictoryShot.ViewModels
 		{
 			get
 			{
-				return VictoryShot.Settings.Get("RecordRanked").Bool;
+				return VictoryShot.Settings.Get(Strings.RecordRanked).Bool;
 			}
 			set
 			{
-				VictoryShot.Settings.Set("RecordRanked", value);
-				RaisePropertyChanged("RecordRanked");
+				VictoryShot.Settings.Set(Strings.RecordRanked, value);
+				RaisePropertyChanged(Strings.RecordRanked);
 			}
 		}
 
@@ -155,12 +155,12 @@ namespace HDT.Plugins.VictoryShot.ViewModels
 		{
 			get
 			{
-				return VictoryShot.Settings.Get("FileNamePattern").Value;
+				return VictoryShot.Settings.Get(Strings.FileNamePattern).Value;
 			}
 			set
 			{
-				VictoryShot.Settings.Set("FileNamePattern", value);
-				RaisePropertyChanged("FileNamePattern");
+				VictoryShot.Settings.Set(Strings.FileNamePattern, value);
+				RaisePropertyChanged(Strings.FileNamePattern);
 			}
 		}
 
@@ -189,14 +189,14 @@ namespace HDT.Plugins.VictoryShot.ViewModels
 			dialog.UseDescriptionForTitle = true;
 
 			// set initial directory to setting if exists
-			var current = VictoryShot.Settings.Get("OutputDir").Value;
+			var current = VictoryShot.Settings.Get(Strings.OutputDir).Value;
 			if (Directory.Exists(current))
 				dialog.SelectedPath = current;
 
 			if ((bool)dialog.ShowDialog())
 			{
-				VictoryShot.Settings.Set("OutputDir", dialog.SelectedPath);
-				RaisePropertyChanged("OutputDir");
+				VictoryShot.Settings.Set(Strings.OutputDir, dialog.SelectedPath);
+				RaisePropertyChanged(Strings.OutputDir);
 			}
 		}
 
