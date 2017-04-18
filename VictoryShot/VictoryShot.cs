@@ -7,9 +7,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using GalaSoft.MvvmLight.Command;
-using HDT.Plugins.Common.Controls.SlidePanels;
-using HDT.Plugins.Common.Plugin;
-using HDT.Plugins.Common.Providers;
 using HDT.Plugins.Common.Services;
 using HDT.Plugins.Common.Settings;
 using HDT.Plugins.VictoryShot.Models;
@@ -17,36 +14,44 @@ using HDT.Plugins.VictoryShot.Services;
 using HDT.Plugins.VictoryShot.ViewModels;
 using HDT.Plugins.VictoryShot.Views;
 using HDT.Plugins.VictoryShot.Utilities;
+using HDT.Plugins.Common.Controls;
+using Ninject;
+using HDT.Plugins.Common.Utils;
 
 namespace HDT.Plugins.VictoryShot
 {
-	[Name("Victory Shot")]
-	[Description("Helps in automating screen shots of the victory/defeat screens after a match.")]
-	public class VictoryShot : PluginBase
+	public class VictoryShot : IPluggable
 	{
-		public static readonly IUpdateService Updater;
-		public static readonly ILoggingService Logger;
-		public static readonly IDataRepository Data;
-		public static readonly IEventsService Events;
-		public static readonly IGameClientService Client;
-		public static readonly IConfigurationRepository Config;
-		public static readonly Settings Settings;
+		public static IUpdateService Updater;
+		public static ILoggingService Logger;
+		public static IDataRepository Data;
+		public static IEventsService Events;
+		public static IGameClientService Client;
+		public static IConfigurationRepository Config;
+		public static Settings Settings;
 
 		private static IImageCaptureService _capture;
 
 		public static ObservableCollection<Screenshot> Screenshots;
 		public static MainViewModel MainViewModel;
 
-		static VictoryShot()
+		private static IKernel _kernel;
+		private static Version _version;
+
+		public static readonly string Name = "Victory Shot";
+
+		public VictoryShot(IKernel kernel, Version version)
 		{
+			_kernel = kernel;
+			_version = version;
+
 			// initialize services
-			var resolver = Injector.Instance.Container;
-			Updater = resolver.GetInstance<IUpdateService>();
-			Logger = resolver.GetInstance<ILoggingService>();
-			Data = resolver.GetInstance<IDataRepository>();
-			Events = resolver.GetInstance<IEventsService>();
-			Client = resolver.GetInstance<IGameClientService>();
-			Config = resolver.GetInstance<IConfigurationRepository>();
+			Updater = _kernel.Get<IUpdateService>();
+			Logger = _kernel.Get<ILoggingService>();
+			Data = _kernel.Get<IDataRepository>();
+			Events = _kernel.Get<IEventsService>();
+			Client = _kernel.Get<IGameClientService>();
+			Config = _kernel.Get<IConfigurationRepository>();
 			// load settings
 			var assembly = Assembly.GetExecutingAssembly();
 			var resourceName = "HDT.Plugins.VictoryShot.Resources.Default.ini";
@@ -55,48 +60,36 @@ namespace HDT.Plugins.VictoryShot
 			_capture = new TrackerCapture();
 			Screenshots = new ObservableCollection<Screenshot>();
 			MainViewModel = new MainViewModel();
-		}
+		}				
 
-		public VictoryShot()
-			: base(Assembly.GetExecutingAssembly())
+		public MenuItem CreateMenu()
 		{
-		}
-
-		private MenuItem _menuItem;
-
-		public override MenuItem MenuItem
-		{
-			get
-			{
-				if (_menuItem == null)
-					_menuItem = CreatePluginMenu();
-				return _menuItem;
-			}
-		}
-
-		private MenuItem CreatePluginMenu()
-		{
-			var pm = new PluginMenu("Victory Cap", "trophy",
+			var pm = new PluginMenu("Victory Shot", IcoMoon.Trophy,
 				new RelayCommand(() => ShowMainView(ViewModelHelper.SettingsString)));
 			return pm.Menu;
 		}
 
-		public override void OnButtonPress()
+		public void ButtonPress()
 		{
 			ShowMainView(ViewModelHelper.SettingsString);
 		}
 
-		public override async void OnLoad()
+		public async void Load()
 		{
 			// check for plugin update
-			await UpdateCheck("VictoryShot", "hdt-plugin-victoryshot");
+			await UpdateCheck("andburn", "hdt-plugin-victoryshot");
 			// set the action to run on the game end event
 			Events.OnGameEnd(Run);
 		}
 
-		public override void OnUnload()
+		public void Unload()
 		{
 			CloseMainView();
+		}
+
+		public void Repeat()
+		{
+
 		}
 
 		public async static void Run()
@@ -154,10 +147,10 @@ namespace HDT.Plugins.VictoryShot
 			}
 		}
 
-		public static void Notify(string title, string message, int autoClose, string icon = null, Action action = null)
+		public static void Notify(string title, string message, int autoClose, string icon=null, Action action=null)
 		{
 			SlidePanelManager
-				.Notification(title, message, icon, action)
+				.Notification(_kernel.Get<ISlidePanel>(), title, message, icon, action)
 				.AutoClose(autoClose);
 		}
 
@@ -227,22 +220,17 @@ namespace HDT.Plugins.VictoryShot
 			}
 		}
 
-		private async Task UpdateCheck(string name, string repo)
+		private async Task UpdateCheck(string user, string repo)
 		{
-			var uri = new Uri($"https://api.github.com/repos/andburn/{repo}/releases");
-			Logger.Debug("update uri = " + uri);
 			try
 			{
-				var latest = await Updater.CheckForUpdate(uri, Version);
+				var latest = await Updater.CheckForUpdate(user, repo, _version);
 				if (latest.HasUpdate)
 				{
 					Logger.Info($"Plugin Update available ({latest.Version})");
-					SlidePanelManager
-						.Notification("Plugin Update Available",
-							$"[DOWNLOAD]({latest.DownloadUrl}) {name} v{latest.Version}",
-							"download3",
-							() => Process.Start(latest.DownloadUrl))
-						.AutoClose(10);
+					Notify("Plugin Update Available",
+						$"[DOWNLOAD]({latest.DownloadUrl}) {Name} v{latest.Version}",
+						10, IcoMoon.Download3, () => Process.Start(latest.DownloadUrl));
 				}
 			}
 			catch (Exception e)
