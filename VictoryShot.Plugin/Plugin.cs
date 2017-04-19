@@ -69,18 +69,7 @@ namespace HDT.Plugins.VictoryShot
 
 		private Version GetVersion()
 		{
-			var assembly = Assembly.GetExecutingAssembly();
-
-			if (assembly == null)
-				return null;
-
-			var nspace = GetType().Namespace;
-			var gitInfo = assembly.GetType(nspace + ".GitVersionInformation");
-			var semVer = gitInfo?.GetField("AssemblySemVer").GetValue(null).ToString();
-			Version result = null;
-			Version.TryParse(semVer, out result);
-
-			return result;
+			return GitVersion.Get(Assembly.GetExecutingAssembly(), this);
 		}
 	}
 }
