@@ -38,7 +38,7 @@ namespace HDT.Plugins.VictoryShot
 
 		public string Name => "Victory Shot";
 
-		public string Description => "Helps in automating screen shots of the victory/defeat screens after a match.";
+		public string Description => "Helps in capturing victory/defeat screen shots after a match.";
 
 		public string ButtonText => "Settings";
 

@@ -9,7 +9,7 @@
              mc:Ignorable="d" Topmost="True"
              Width="320" Height="720"
              MinHeight="400" MaxWidth="320" MinWidth="320"
-             Title="Hearthstone Deck Tracker (Victory Cap)">
+             Title="Hearthstone Deck Tracker (Victory Shot)">
     <Window.DataContext>
         <viewmodels:MainViewModel />
     </Window.DataContext>
@@ -33,7 +33,7 @@
             <controls:MoonTextButton DockPanel.Dock="Right" Margin="4,4,6,4"
                                      Text="CAPTURES" Icon="&#xe90e;" Cursor="Hand"
                                      Command="{Binding NavigateCommand}" Param="captures" />
-            <TextBlock Foreground="White" FontSize="28" VerticalAlignment="Center" Margin="8">Victory Cap</TextBlock>
+            <TextBlock Foreground="White" FontSize="28" VerticalAlignment="Center" Margin="8">Victory Shot</TextBlock>
         </DockPanel>
         <DockPanel DockPanel.Dock="Top" Background="#2e3136">
             <TextBlock Text="{Binding ContentTitle}" Foreground="White" FontSize="16" Margin="8,4,4,4" />
