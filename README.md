@@ -9,9 +9,10 @@ A [Hearthstone Deck Tracker](https://hsdecktracker.net/) plugin that that takes 
 ---
 
 ## Install
-- Download the [latest release](https://github.com/andburn/hdt-plugin-victoryshot/releases/latest) (*not the source code*)
-- Unzip the contents into you Hearthstone Deck Tracker's plugins folder
-- Enable the plugin in HDT's settings
+- This plugin depends on the [Common](https://github.com/andburn/hdt-plugin-common) plugin. If you have not already installed it follow the instructions for installing that plugin first.
+- Next, download the [latest release](https://github.com/andburn/hdt-plugin-victoryshot/releases/latest) of this plugin (*not the source code*).
+- Unzip the contents into you Hearthstone Deck Tracker's plugins folder.
+- Enable the plugin in HDT's settings.
 
 ## Features
 The plugin helps the player save screenshots of the victory/defeat screen that occurs at the end of a match.
@@ -48,6 +49,13 @@ This would make the file name be something like:
 ```
 Player1 (Mage) VS Player2 (Warlock) 12.08.2015_22:00.png
 ```
+
+## Build
+
+- In order to build this plugin you'll will need to add references to:
+  - *HearthstoneDeckTracker.exe*
+  - and also the *Common* plugin's dll's.
+- The yellow triangle icons in visual studio will indicate what files need to be referenced where.
 
 ---
 
