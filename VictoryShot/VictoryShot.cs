@@ -109,7 +109,7 @@ namespace HDT.Plugins.VictoryShot
 			catch (Exception e)
 			{
 				Logger.Error(e);
-				Notify("VictoryShot Error", e.Message, 15, "error", null);
+				Notify("VictoryShot Error", e.Message, 15, IcoMoon.Warning, null);
 			}
 		}
 

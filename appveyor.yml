@@ -12,8 +12,8 @@ after_build:
 deploy:
 - provider: GitHub
   tag: $(APPVEYOR_REPO_TAG_NAME)
-  release: Update v$(APPVEYOR_REPO_TAG_NAME)
-  description: description
+  release: Update $(APPVEYOR_REPO_TAG_NAME)
+  description: Description
   auth_token:
     secure: OpNj+lrWxBC7mLLsC2F7BqFrwrOBXsgqelz6t0wK8pqIBjO7Imn9Adp+k6OuNbCN
   artifact: Release
