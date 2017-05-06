@@ -24,11 +24,11 @@ If (-not (test-path $ScriptDir)) {
 If ($PreBuild) {
 	# Restore nuget packages and get dependent libraries
 	Write-Host -Foreground Cyan "Cloning dependencies from GitHub"	
-	GetLatestRelease $Root "HearthSim" "Hearthstone-Deck-Tracker"
+	GetLatestRelease $Root "HearthSim" "Hearthstone-Deck-Tracker" -Scrape
 	$ExtractPath = Join-Path -Path $Root -ChildPath "Hearthstone Deck Tracker"
 	Rename-Item -NewName "$ExtractPath\HearthstoneDeckTracker.exe" "$ExtractPath\Hearthstone Deck Tracker.exe"
-	GetLatestRelease $Root "andburn" "hdt-plugin-common"
-	Write-Host -Foreground Cyan "Restoring nuget packages"	
+	GetLatestRelease $Root "andburn" "hdt-plugin-common" -Scrape
+	Write-Host -Foreground Cyan "Restoring nuget packages"
 	nuget restore
 } ElseIf ($PostBuild) {
 	# Create a release package
