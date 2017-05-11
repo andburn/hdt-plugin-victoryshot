@@ -21,33 +21,29 @@ namespace HDT.Plugins.VictoryShot.Utilities
 			List<string> list = new List<string>();
 			const string regex = @"^([^{}]*)(({[A-Z][^{}]+})([^{}]*))*$";
 
-			if (string.IsNullOrWhiteSpace(pattern))
-				pattern = DefaultPattern;
-
-			Regex r = new Regex(regex);
-
-			var match = Regex.Match(pattern, regex);
-			if (match.Success)
+			if (!string.IsNullOrWhiteSpace(pattern))
 			{
-				var prefix = match.Groups[1].Captures[0].Value;
-				if (!string.IsNullOrEmpty(prefix))
-					list.Add(prefix);
+				Regex r = new Regex(regex);
 
-				var tokens = match.Groups[3].Captures;
-				var strings = match.Groups[4].Captures;
-
-				if (tokens.Count == strings.Count)
+				var match = Regex.Match(pattern, regex);
+				if (match.Success)
 				{
-					for (int i = 0; i < tokens.Count; i++)
+					var prefix = match.Groups[1].Captures[0].Value;
+					if (!string.IsNullOrEmpty(prefix))
+						list.Add(prefix);
+
+					var tokens = match.Groups[3].Captures;
+					var strings = match.Groups[4].Captures;
+
+					if (tokens.Count == strings.Count)
 					{
-						list.Add(tokens[i].Value);
-						if (!string.IsNullOrEmpty(strings[i].Value))
-							list.Add(strings[i].Value);
+						for (int i = 0; i < tokens.Count; i++)
+						{
+							list.Add(tokens[i].Value);
+							if (!string.IsNullOrEmpty(strings[i].Value))
+								list.Add(strings[i].Value);
+						}
 					}
-				}
-				else
-				{
-					VictoryShot.Logger.Error("NamingPattern parse error: tokens and strings don't match");
 				}
 			}
 			return list;
@@ -55,7 +51,7 @@ namespace HDT.Plugins.VictoryShot.Utilities
 
 		public static bool TryParse(string pattern, out NamingPattern naming)
 		{
-			naming = new NamingPattern();
+			naming = null;
 			List<string> result = Parse(pattern);
 			if (result.Count <= 0)
 			{
@@ -63,7 +59,9 @@ namespace HDT.Plugins.VictoryShot.Utilities
 			}
 			else
 			{
-				naming.Pattern = result;
+				naming = new NamingPattern() {
+					Pattern = result
+				};
 				return true;
 			}
 		}
@@ -113,7 +111,6 @@ namespace HDT.Plugins.VictoryShot.Utilities
 				{
 					var capture = match.Groups["date"].Value;
 					var date = DateTime.Now.ToString(capture);
-					Console.WriteLine(date);
 					if (date == capture)
 						return defaultDate;
 					else
