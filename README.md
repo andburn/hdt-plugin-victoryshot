@@ -17,11 +17,11 @@ A [Hearthstone Deck Tracker](https://hsdecktracker.net/) plugin that that takes 
 ## Usage
 When the plugin is enabled it will take a series of screenshots at the end of a game allowing you to select one to save.
 
-![captures](Docs/victory-shot-2.png)
+![captures](VictoryShot.Docs/victory-shot-2.png)
 
 There is a time delay between HDT detecting the end of a game and the actual display of the Victory/Defeat screen. This delay can vary depending on the game and game mode. The settings may need to be tweaked to better suit your system.
 
-![settings](Docs/victory-shot-1.png)
+![settings](VictoryShot./victory-shot-1.png)
 
 - *Delay* specifies the number of seconds to wait from the detected end of game to the actual display on screen.
 - *Image Number* is the number of images to take in sequence. (If this is set to 1 the end game dialog is not shown, but the screenshot is still saved).
@@ -57,7 +57,7 @@ Player1 (Mage) VS Player2 (Warlock) 12.08.2015_22:00.png
 ---
 
 ## License
-The plugin is licensed under the terms of the MIT license. The full license text is available in the LICENSE file.
+The plugin is licensed under the terms of the MIT license.
 
 ## Attribution
 This plugin uses [IcoMoon](https://icomoon.io/) free font icons licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
