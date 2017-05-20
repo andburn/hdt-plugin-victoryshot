@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"          
              xmlns:viewmodels="clr-namespace:HDT.Plugins.VictoryShot.ViewModels"
              xmlns:views="clr-namespace:HDT.Plugins.VictoryShot.Views"
-             xmlns:controls="clr-namespace:HDT.Plugins.Common.Controls;assembly=Common"
+             xmlns:controls="clr-namespace:HDT.Plugins.Common.Controls;assembly=VictoryShot.Common"
              mc:Ignorable="d" Topmost="True"
              Width="320" Height="720"
              MinHeight="400" MaxWidth="320" MinWidth="320"
@@ -24,7 +24,7 @@
     <DockPanel>
         <DockPanel DockPanel.Dock="Top" Height="60">
             <DockPanel.Background>
-                <ImageBrush ImageSource="pack://application:,,,/Common;component/Resources/hdt-banner.png" 
+                <ImageBrush ImageSource="pack://application:,,,/VictoryShot.Common;component/Resources/hdt-banner.png" 
                             TileMode="Tile" Stretch="UniformToFill"/>
             </DockPanel.Background>
             <controls:MoonTextButton DockPanel.Dock="Right" Margin="4,4,6,4"

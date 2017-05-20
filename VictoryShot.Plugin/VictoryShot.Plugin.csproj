@@ -50,15 +50,6 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Common">
-      <HintPath>..\..\build\Common\Common.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Common.Providers">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\build\Common\Common.Providers.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="HearthstoneDeckTracker">
       <HintPath>..\..\build\Hearthstone Deck Tracker\HearthstoneDeckTracker.exe</HintPath>
       <Private>False</Private>
@@ -84,6 +75,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\VictoryShot.Common\VictoryShot.Common.csproj">
+      <Project>{f51d27fb-4576-4dfa-9c1b-02fcbe414587}</Project>
+      <Name>VictoryShot.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\VictoryShot\VictoryShot.csproj">
       <Project>{33a76749-6c63-4099-ba32-da2390365411}</Project>
       <Name>VictoryShot</Name>
