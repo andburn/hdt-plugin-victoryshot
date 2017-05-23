@@ -56,6 +56,19 @@ Param(
     $file -replace "<$Name>.+?</$Name>", "<$Name>$Value</$Name>" | Set-Content $Project
 }
 
+Function ReplacePackAddresses {
+Param(
+    [string]$Name
+)
+    # not the most robust way, but faster than searching all files
+    $files = "Controls\MoonTextButton.xaml", "Controls\Styles.xaml", "Utils\PluginMenu.cs"
+    foreach ($f in $files) {
+        $file = "$TempDir\$Common\$f"
+        $content = Get-Content $file
+        $content -replace "pack://application:,,,/$Common;", "pack://application:,,,/$Name.$Common;" | Set-Content $file
+    }
+}
+
 # git is required exit if not found
 if (Get-Command "git.exe" -ErrorAction SilentlyContinue) {
     RemoveDirectoryIfExists $TempDir
@@ -72,6 +85,8 @@ if (Get-Command "git.exe" -ErrorAction SilentlyContinue) {
     ReplaceCommonProjectItem "ProjectGuid" "{$guid}"
     # prefix the assembly name witht ths plugin's name
     ReplaceCommonProjectItem "AssemblyName" "$name.$Common"
+    # replace pack addresses with new name
+    ReplacePackAddresses $name
     # rename the common project for this plugin
     Rename-Item "$TempDir\$Common\$Common.csproj" "$TempDir\$Common\$name.$Common.csproj"
     Rename-Item "$TempDir\$Common" "$TempDir\$name.$Common"
