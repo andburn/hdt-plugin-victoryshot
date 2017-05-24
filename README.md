@@ -9,10 +9,12 @@ A [Hearthstone Deck Tracker](https://hsdecktracker.net/) plugin that that takes 
 ---
 
 ## Install
-1. The [Common](https://github.com/andburn/hdt-plugin-common) plugin needs to be installed for this plugin to work. If it is not already in your plugin list [install](https://github.com/andburn/hdt-plugin-common) it.
-- Then download the [latest release](https://github.com/andburn/hdt-plugin-victoryshot/releases/latest) of this plugin (*not the source code*).
+1. Remove any previous versions of this plugin from `%AppData%HearthstoneDeckTracker\Plugins`
+- Download the [latest release](https://github.com/andburn/hdt-plugin-victoryshot/releases/latest) of this plugin (*not the source code*).
 - Unzip the contents into you Hearthstone Deck Tracker's plugins folder.
 - Enable the plugin in HDT's settings.
+
+See the HDT plugin [wiki page](https://github.com/HearthSim/Hearthstone-Deck-Tracker/wiki/Available-Plugins#how-to-install-plugins) for more information on installing and using plugins.
 
 ## Usage
 When the plugin is enabled it will take a series of screenshots at the end of a game allowing you to select one to save.
@@ -21,7 +23,7 @@ When the plugin is enabled it will take a series of screenshots at the end of a 
 
 There is a time delay between HDT detecting the end of a game and the actual display of the Victory/Defeat screen. This delay can vary depending on the game and game mode. The settings may need to be tweaked to better suit your system.
 
-![settings](VictoryShot./victory-shot-1.png)
+![settings](VictoryShot.Docs/victory-shot-1.png)
 
 - *Delay* specifies the number of seconds to wait from the detected end of game to the actual display on screen.
 - *Image Number* is the number of images to take in sequence. (If this is set to 1 the end game dialog is not shown, but the screenshot is still saved).
@@ -49,10 +51,9 @@ Player1 (Mage) VS Player2 (Warlock) 12.08.2015_22:00.png
 
 ## Build
 
-- In order to build this plugin you'll will need to add references to:
-  - *HearthstoneDeckTracker.exe*
-  - all of the *Common* plugin's dll's.
-- The yellow triangle icons in visual studio in a projects references tree will indicate what files need to be referenced and where.
+- Before opening the solution, you need to run the `bootstrap.ps1` powershell script to initialize a project dependency (*git* is required for the script to run).
+- In order to build this plugin you'll will need to add references to *HearthstoneDeckTracker.exe* in multiple projects of the solution.
+  - The yellow triangle icons in visual studio in a projects references tree will indicate what files need to be referenced and where.
 
 ---
 
