@@ -7,21 +7,28 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using GalaSoft.MvvmLight.Command;
+using HDT.Plugins.Common.Controls;
+using HDT.Plugins.Common.Providers.Metro;
+using HDT.Plugins.Common.Providers.Tracker;
+using HDT.Plugins.Common.Providers.Web;
 using HDT.Plugins.Common.Services;
 using HDT.Plugins.Common.Settings;
+using HDT.Plugins.Common.Utils;
 using HDT.Plugins.VictoryShot.Models;
 using HDT.Plugins.VictoryShot.Services;
+using HDT.Plugins.VictoryShot.Utilities;
 using HDT.Plugins.VictoryShot.ViewModels;
 using HDT.Plugins.VictoryShot.Views;
-using HDT.Plugins.VictoryShot.Utilities;
-using HDT.Plugins.Common.Controls;
+using Hearthstone_Deck_Tracker.Plugins;
 using Ninject;
-using HDT.Plugins.Common.Utils;
 
 namespace HDT.Plugins.VictoryShot
 {
-	public class VictoryShot : IPluggable
+	public class VictoryShot : IPlugin
 	{
+		private static IKernel _kernel;
+		private static IImageCaptureService _capture;
+
 		public static IUpdateService Updater;
 		public static ILoggingService Logger;
 		public static IDataRepository Data;
@@ -30,21 +37,32 @@ namespace HDT.Plugins.VictoryShot
 		public static IConfigurationRepository Config;
 		public static Settings Settings;
 
-		private static IImageCaptureService _capture;
-
 		public static ObservableCollection<Screenshot> Screenshots;
 		public static MainViewModel MainViewModel;
 
-		private static IKernel _kernel;
-		private static Version _version;
+		public string Name => "Victory Shot";
 
-		public static readonly string Name = "Victory Shot";
+		public string Description => "Helps in capturing victory/defeat screen shots after a match.";
 
-		public VictoryShot(IKernel kernel, Version version)
+		public string ButtonText => "Settings";
+
+		public string Author => "andburn";
+
+		private Version _version;
+
+		public Version Version
 		{
-			_kernel = kernel;
-			_version = version;
+			get
+			{
+				if (_version == null)
+					_version = GetVersion() ?? new Version(0, 0, 0, 0);
+				return _version;
+			}
+		}
 
+		public VictoryShot()
+		{
+			_kernel = GetKernel();
 			// initialize services
 			Updater = _kernel.Get<IUpdateService>();
 			Logger = _kernel.Get<ILoggingService>();
@@ -60,21 +78,26 @@ namespace HDT.Plugins.VictoryShot
 			_capture = new TrackerCapture();
 			Screenshots = new ObservableCollection<Screenshot>();
 			MainViewModel = new MainViewModel();
-		}				
-
-		public MenuItem CreateMenu()
-		{
-			var pm = new PluginMenu("Victory Shot", IcoMoon.Trophy,
-				new RelayCommand(() => ShowMainView(ViewModelHelper.SettingsString)));
-			return pm.Menu;
 		}
 
-		public void ButtonPress()
+		private MenuItem _menuItem;
+
+		public MenuItem MenuItem
+		{
+			get
+			{
+				if (_menuItem == null)
+					_menuItem = CreateMenu();
+				return _menuItem;
+			}
+		}
+
+		public void OnButtonPress()
 		{
 			ShowMainView(ViewModelHelper.SettingsString);
 		}
 
-		public async void Load()
+		public async void OnLoad()
 		{
 			// check for plugin update
 			await UpdateCheck("andburn", "hdt-plugin-victoryshot");
@@ -82,14 +105,13 @@ namespace HDT.Plugins.VictoryShot
 			Events.OnGameEnd(Run);
 		}
 
-		public void Unload()
+		public void OnUnload()
 		{
 			CloseMainView();
 		}
 
-		public void Repeat()
+		public void OnUpdate()
 		{
-
 		}
 
 		public async static void Run()
@@ -147,7 +169,7 @@ namespace HDT.Plugins.VictoryShot
 			}
 		}
 
-		public static void Notify(string title, string message, int autoClose, string icon=null, Action action=null)
+		public static void Notify(string title, string message, int autoClose, string icon = null, Action action = null)
 		{
 			SlidePanelManager
 				.Notification(_kernel.Get<ISlidePanel>(), title, message, icon, action)
@@ -237,6 +259,31 @@ namespace HDT.Plugins.VictoryShot
 			{
 				Logger.Error($"Github update failed: {e.Message}");
 			}
+		}
+
+		private IKernel GetKernel()
+		{
+			var kernel = new StandardKernel();
+			kernel.Bind<IDataRepository>().To<TrackerDataRepository>().InSingletonScope();
+			kernel.Bind<IUpdateService>().To<GitHubUpdateService>().InSingletonScope();
+			kernel.Bind<ILoggingService>().To<TrackerLoggingService>().InSingletonScope();
+			kernel.Bind<IEventsService>().To<TrackerEventsService>().InSingletonScope();
+			kernel.Bind<IGameClientService>().To<TrackerClientService>().InSingletonScope();
+			kernel.Bind<IConfigurationRepository>().To<TrackerConfigRepository>().InSingletonScope();
+			kernel.Bind<ISlidePanel>().To<MetroSlidePanel>();
+			return kernel;
+		}
+
+		private MenuItem CreateMenu()
+		{
+			var pm = new PluginMenu("Victory Shot", IcoMoon.Trophy,
+				new RelayCommand(() => ShowMainView(ViewModelHelper.SettingsString)));
+			return pm.Menu;
+		}
+
+		private Version GetVersion()
+		{
+			return GitVersion.Get(Assembly.GetExecutingAssembly(), this);
 		}
 	}
 }
