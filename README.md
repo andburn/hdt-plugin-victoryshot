@@ -19,11 +19,11 @@ See the HDT plugin [wiki page](https://github.com/HearthSim/Hearthstone-Deck-Tra
 ## Usage
 When the plugin is enabled it will take a series of screenshots at the end of a game allowing you to select one to save.
 
-![captures](VictoryShot.Docs/victory-shot-2.png)
+![captures](Docs/victory-shot-2.png)
 
 There is a time delay between HDT detecting the end of a game and the actual display of the Victory/Defeat screen. This delay can vary depending on the game and game mode. The settings may need to be tweaked to better suit your system.
 
-![settings](VictoryShot.Docs/victory-shot-1.png)
+![settings](Docs/victory-shot-1.png)
 
 - *Delay* specifies the number of seconds to wait from the detected end of game to the actual display on screen.
 - *Image Number* is the number of images to take in sequence. (If this is set to 1 the end game dialog is not shown, but the screenshot is still saved).
@@ -50,7 +50,7 @@ Player1 (Mage) VS Player2 (Warlock) 12.08.2015_22:00.png
 ```
 
 ## Build
-
+- You may need to first do a `git submodule update --init --recursive` to get some build scripts.
 - Before opening the solution, you need to run the `bootstrap.ps1` powershell script to initialize a project dependency (*git* is required for the script to run).
 - In order to build this plugin you'll will need to add references to *HearthstoneDeckTracker.exe* in multiple projects of the solution.
   - The yellow triangle icons in visual studio in a projects references tree will indicate what files need to be referenced and where.

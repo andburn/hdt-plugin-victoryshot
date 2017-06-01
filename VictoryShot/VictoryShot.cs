@@ -153,7 +153,6 @@ namespace HDT.Plugins.VictoryShot
 			}
 			// show the window, and restore if needed
 			view.Show();
-			Logger.Info("window state: " + view.WindowState);
 			if (view.WindowState == WindowState.Minimized)
 				view.WindowState = WindowState.Normal;
 			view.Activate();
