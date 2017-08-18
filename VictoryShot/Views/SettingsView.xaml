@@ -48,15 +48,14 @@
         </Border>
         <StackPanel>
             <DockPanel>
-                <TextBox Text="{Binding OutputDir}" Width="180" IsReadOnly="True"/>
+                <TextBox Text="{Binding OutputDir}" Width="180" IsReadOnly="True" />
                 <Button Content="Browse"
                             Command="{Binding ChooseDirCommand}"
-                            Margin="5,0,0,0" 
+                            Margin="5,0,0,0"
                             Cursor="Hand"
                             ToolTip="Set the default ouput directory for saved screenshots" />
             </DockPanel>
         </StackPanel>
-
 
         <Border BorderBrush="Black" BorderThickness="0,0,0,1" Margin="0,15">
             <TextBlock FontWeight="Bold" FontSize="16">FILENAME PATTERN</TextBlock>
@@ -73,7 +72,7 @@
                 </i:Interaction.Triggers>
             </TextBox>
             <TextBlock Text="Preview:" FontWeight="Bold" Margin="0,5,0,0" />
-            <TextBox Text="{Binding PatternPreview}" 
+            <TextBox Text="{Binding PatternPreview}"
                          IsReadOnly="True" FontStyle="Italic" Foreground="#FFABADB3" />
         </StackPanel>
 
@@ -128,16 +127,14 @@
                           Grid.Column="1" Grid.Row="2" />
         </Grid>
 
-
         <Border BorderBrush="Black" BorderThickness="0,1,0,0" Margin="0,15,0,8" Padding="4,4,4,0">
             <TextBlock Height="35" TextWrapping="Wrap">
-                See the 
-                <Hyperlink 
-                    NavigateUri="https://github.com/andburn/hdt-plugin-victoryshot/blob/master/README.md" 
+                See the
+                <Hyperlink
+                    NavigateUri="https://github.com/andburn/hdt-plugin-victoryshot/blob/master/README.md"
                     RequestNavigate="Hyperlink_Navigate">README</Hyperlink>
                 for more information about the settings and their values.
             </TextBlock>
         </Border>
-
     </StackPanel>
 </UserControl>

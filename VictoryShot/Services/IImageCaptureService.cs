@@ -1,6 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using HDT.Plugins.VictoryShot.Models;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using HDT.Plugins.VictoryShot.Models;
 
 namespace HDT.Plugins.VictoryShot.Services
 {

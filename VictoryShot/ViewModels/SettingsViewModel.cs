@@ -1,8 +1,8 @@
-﻿using System.IO;
-using GalaSoft.MvvmLight;
+﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using HDT.Plugins.VictoryShot.Utilities;
 using Ookii.Dialogs.Wpf;
+using System.IO;
 
 namespace HDT.Plugins.VictoryShot.ViewModels
 {

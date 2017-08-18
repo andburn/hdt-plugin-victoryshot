@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using GalaSoft.MvvmLight;
+﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using System.Collections.Generic;
 
 namespace HDT.Plugins.VictoryShot.ViewModels
 {

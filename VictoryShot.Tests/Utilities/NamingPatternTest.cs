@@ -1,6 +1,6 @@
-﻿using System;
-using HDT.Plugins.VictoryShot.Utilities;
+﻿using HDT.Plugins.VictoryShot.Utilities;
 using NUnit.Framework;
+using System;
 
 namespace HDT.Plugins.VictoryShot.Tests
 {
@@ -113,7 +113,7 @@ namespace HDT.Plugins.VictoryShot.Tests
 		{
 			NamingPattern.TryParse("{Date:ABC}", out np);
 			Assert.AreEqual(DateTime.Now.ToString("dd.MM.yyy_HH.mm"), ApplyPattern(np));
-		}		
+		}
 
 		private static string ApplyPattern(NamingPattern np)
 		{

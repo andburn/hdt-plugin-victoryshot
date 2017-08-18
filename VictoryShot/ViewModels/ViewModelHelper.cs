@@ -1,10 +1,10 @@
-﻿using System;
+﻿using HDT.Plugins.VictoryShot.Models;
+using HDT.Plugins.VictoryShot.Utilities;
+using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Threading.Tasks;
-using HDT.Plugins.VictoryShot.Models;
-using HDT.Plugins.VictoryShot.Utilities;
 
 namespace HDT.Plugins.VictoryShot.ViewModels
 {

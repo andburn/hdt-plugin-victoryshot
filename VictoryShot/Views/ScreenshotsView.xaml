@@ -34,10 +34,10 @@
         </Grid.RowDefinitions>
 
         <Border Grid.Column="0" Grid.Row="0" BorderBrush="Black" BorderThickness="0,0,0,0.5" Padding="2">
-            <TextBlock HorizontalAlignment="Center" 
-                   VerticalAlignment="Center" 
-                   FontSize="16" 
-                   FontWeight="Bold" 
+            <TextBlock HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontSize="16"
+                   FontWeight="Bold"
                    Margin="0,6"
                    Text="{Binding ScreenshotCountText}" />
         </Border>
@@ -81,13 +81,11 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
-
         <Border Grid.Column="0" Grid.Row="2"
                 Background="#2e3136" BorderThickness="0">
-            <Button Height="40" Width="100" Margin="8" 
+            <Button Height="40" Width="100" Margin="8"
                     IsEnabled="{Binding HasScreenshots}"
                     Command="{Binding SaveCommand}" Cursor="Hand">Save</Button>
         </Border>
-
     </Grid>
 </UserControl>

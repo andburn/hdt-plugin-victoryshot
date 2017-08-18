@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using HDT.Plugins.VictoryShot.Models;
+using HDT.Plugins.VictoryShot.Utilities;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
-using HDT.Plugins.VictoryShot.Models;
-using HDT.Plugins.VictoryShot.Utilities;
 
 namespace HDT.Plugins.VictoryShot.Services
 {
@@ -33,7 +33,7 @@ namespace HDT.Plugins.VictoryShot.Services
 			}
 
 			// sort in reverse, last first
-			foreach(var s in screenshots.OrderByDescending(s => s.Index))
+			foreach (var s in screenshots.OrderByDescending(s => s.Index))
 			{
 				list.Add(s);
 			}

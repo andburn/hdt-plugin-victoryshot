@@ -1,6 +1,6 @@
-﻿using System.Drawing;
+﻿using GalaSoft.MvvmLight;
+using System.Drawing;
 using System.Windows.Media.Imaging;
-using GalaSoft.MvvmLight;
 
 namespace HDT.Plugins.VictoryShot.Models
 {

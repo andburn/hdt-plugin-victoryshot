@@ -59,7 +59,8 @@ namespace HDT.Plugins.VictoryShot.Utilities
 			}
 			else
 			{
-				naming = new NamingPattern() {
+				naming = new NamingPattern()
+				{
 					Pattern = result
 				};
 				return true;

@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using GalaSoft.MvvmLight.Command;
+﻿using GalaSoft.MvvmLight.Command;
 using HDT.Plugins.Common.Controls;
 using HDT.Plugins.Common.Providers.Metro;
 using HDT.Plugins.Common.Providers.Tracker;
@@ -21,6 +13,14 @@ using HDT.Plugins.VictoryShot.ViewModels;
 using HDT.Plugins.VictoryShot.Views;
 using Hearthstone_Deck_Tracker.Plugins;
 using Ninject;
+using System;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Linq;
+using System.Reflection;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace HDT.Plugins.VictoryShot
 {
