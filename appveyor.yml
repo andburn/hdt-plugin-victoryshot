@@ -15,6 +15,8 @@ build:
   verbosity: minimal
 after_build:
   - ps: .\Scripts\appveyor.ps1 VictoryShot -PostBuild
+after_test:
+  - ps: .\Scripts\appveyor.ps1 VictoryShot -PostTest
 deploy:
   - provider: GitHub
     tag: $(APPVEYOR_REPO_TAG_NAME)

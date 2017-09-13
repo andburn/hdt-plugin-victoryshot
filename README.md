@@ -1,10 +1,10 @@
 ## Victory Shot
+[![AppVeyor branch](https://img.shields.io/appveyor/ci/andburn/hdt-plugin-victoryshot/master.svg?maxAge=21600)](https://ci.appveyor.com/project/andburn/hdt-plugin-victoryshot)
+[![Codecov branch](https://img.shields.io/codecov/c/github/andburn/hdt-plugin-victoryshot/master.svg?maxAge=21600)](https://codecov.io/gh/andburn/hdt-plugin-victoryshot)
+[![GitHub release](https://img.shields.io/github/release/andburn/hdt-plugin-victoryshot.svg?maxAge=21600)](https://github.com/andburn/hdt-plugin-victoryshot/releases/latest)
+[![Github downloads](https://img.shields.io/github/downloads/andburn/hdt-plugin-victoryshot/latest/total.svg?maxAge=21600)](https://github.com/andburn/hdt-plugin-victoryshot/releases/latest)
 
 A [Hearthstone Deck Tracker](https://hsdecktracker.net/) plugin that that takes screenshots at the end of a match.
-
-[![Build status](https://ci.appveyor.com/api/projects/status/lx2vrug90gnb6g4x?svg=true)](https://ci.appveyor.com/project/andburn/hdt-plugin-victoryshot)
-[![GitHub release](https://img.shields.io/github/release/andburn/hdt-plugin-victoryshot.svg?maxAge=604800)](https://github.com/andburn/hdt-plugin-victoryshot/releases/latest)
-[![Github Downloads](https://img.shields.io/github/downloads/andburn/hdt-plugin-victoryshot/latest/total.svg?maxAge=604800)](https://github.com/andburn/hdt-plugin-victoryshot/releases/latest)
 
 ---
 
