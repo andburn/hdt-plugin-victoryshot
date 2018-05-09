@@ -6,9 +6,15 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:local="clr-namespace:HDT.Plugins.VictoryShot.Views"
              mc:Ignorable="d" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ResourceDictionary Source="pack://application:,,,/VictoryShot.Common;component/Controls/Themes.xaml"/>
+    </UserControl.Resources>
     <StackPanel Margin="15">
-
-        <Border BorderBrush="Black" BorderThickness="0,0,0,1" Margin="0,0,0,15">
+        <StackPanel.Resources>
+            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource ThemeTextColor}" />
+            <Style TargetType="{x:Type Border}" BasedOn="{StaticResource ThemeBorderColor}" />
+        </StackPanel.Resources>
+        <Border BorderThickness="0,0,0,1" Margin="0,0,0,15">
             <TextBlock FontWeight="Bold" FontSize="16">OPTIONS</TextBlock>
         </Border>
         <StackPanel>
@@ -43,7 +49,7 @@
             </DockPanel>
         </StackPanel>
 
-        <Border BorderBrush="Black" BorderThickness="0,0,0,1" Margin="0,15">
+        <Border BorderThickness="0,0,0,1" Margin="0,15">
             <TextBlock FontWeight="Bold" FontSize="16">OUTPUT DIRECTORY</TextBlock>
         </Border>
         <StackPanel>
@@ -57,7 +63,7 @@
             </DockPanel>
         </StackPanel>
 
-        <Border BorderBrush="Black" BorderThickness="0,0,0,1" Margin="0,15">
+        <Border BorderThickness="0,0,0,1" Margin="0,15">
             <TextBlock FontWeight="Bold" FontSize="16">FILENAME PATTERN</TextBlock>
         </Border>
         <StackPanel>
@@ -76,7 +82,7 @@
                          IsReadOnly="True" FontStyle="Italic" Foreground="#FFABADB3" />
         </StackPanel>
 
-        <Border BorderBrush="Black" BorderThickness="0,0,0,1" Margin="0,15">
+        <Border BorderThickness="0,0,0,1" Margin="0,15">
             <TextBlock FontWeight="Bold" FontSize="16">GAME MODES</TextBlock>
         </Border>
         <Grid Margin="5,0,5,5">
@@ -127,7 +133,7 @@
                           Grid.Column="1" Grid.Row="2" />
         </Grid>
 
-        <Border BorderBrush="Black" BorderThickness="0,1,0,0" Margin="0,15,0,8" Padding="4,4,4,0">
+        <Border BorderThickness="0,1,0,0" Margin="0,15,0,8" Padding="4,4,4,0">
             <TextBlock Height="35" TextWrapping="Wrap">
                 See the
                 <Hyperlink

@@ -15,25 +15,31 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <UserControl.Resources>
-        <BooleanToVisibilityConverter x:Key="VisibilityConverter" />
-        <!-- checkbox-checked | http://icomoon.io | GPL / CC BY 4.0 -->
-        <Canvas x:Key="CheckedIcon" Clip="M 72,72 L 136,72 136,136 72,136 72,72 Z">
-            <Path Data="F 1 M 56,0 L 8,0 C 3.6,0 0,3.6 0,8 L 0,56 C 0,60.4 3.6,64 8,64 L 56,64 C 60.4,64 64,60.4 64,56 L 64,8 C 64,3.6 60.4,0 56,0 Z M 28,49.657 L 13.172,34.829 18.829,29.172 28,38.343 47.172,19.171 52.829,24.828 28.001,49.656 Z"
-                      RenderTransform="1,0,0,1,72,72" Fill="White">
-                <Path.Effect>
-                    <DropShadowEffect Opacity="0.7" ShadowDepth="4" BlurRadius="10" />
-                </Path.Effect>
-            </Path>
-        </Canvas>
+        <ResourceDictionary Source="pack://application:,,,/VictoryShot.Common;component/Controls/Themes.xaml"/>
     </UserControl.Resources>
     <Grid>
+        <Grid.Resources>
+            <BooleanToVisibilityConverter x:Key="VisibilityConverter" />
+            <!-- checkbox-checked | http://icomoon.io | GPL / CC BY 4.0 -->
+            <Canvas x:Key="CheckedIcon" Clip="M 72,72 L 136,72 136,136 72,136 72,72 Z">
+                <Path Data="F 1 M 56,0 L 8,0 C 3.6,0 0,3.6 0,8 L 0,56 C 0,60.4 3.6,64 8,64 L 56,64 C 60.4,64 64,60.4 64,56 L 64,8 C 64,3.6 60.4,0 56,0 Z M 28,49.657 L 13.172,34.829 18.829,29.172 28,38.343 47.172,19.171 52.829,24.828 28.001,49.656 Z"
+                      RenderTransform="1,0,0,1,72,72" Fill="White">
+                    <Path.Effect>
+                        <DropShadowEffect Opacity="0.7" ShadowDepth="4" BlurRadius="10" />
+                    </Path.Effect>
+                </Path>
+            </Canvas>
+            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource ThemeTextColor}" />
+            <Style TargetType="{x:Type Border}" BasedOn="{StaticResource ThemeBorderColor}" />
+        </Grid.Resources>
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Border Grid.Column="0" Grid.Row="0" BorderBrush="Black" BorderThickness="0,0,0,0.5" Padding="2">
+        <Border Grid.Column="0" Grid.Row="0" BorderThickness="0,0,0,0.5" Padding="2">
             <TextBlock HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    FontSize="16"
