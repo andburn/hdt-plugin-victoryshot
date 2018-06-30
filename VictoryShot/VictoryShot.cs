@@ -131,7 +131,7 @@ namespace HDT.Plugins.VictoryShot
 			catch (Exception e)
 			{
 				Logger.Error(e);
-				Notify("VictoryShot Error", e.Message, 15, IcoMoon.Warning, null);
+				Notify("VictoryShot Error", e.Message, IcoMoon.Warning);
 			}
 		}
 
@@ -168,11 +168,9 @@ namespace HDT.Plugins.VictoryShot
 			}
 		}
 
-		public static void Notify(string title, string message, int autoClose, string icon = null, Action action = null)
+		public static void Notify(string title, string message, string icon = null, string url = null)
 		{
-			SlidePanelManager
-				.Notification(_kernel.Get<ISlidePanel>(), title, message, icon, action)
-				.AutoClose(autoClose);
+			NotificationManager.ShowToast(title, message, icon, url);
 		}
 
 		private static async Task Capture(string mode)
@@ -192,7 +190,7 @@ namespace HDT.Plugins.VictoryShot
 			catch (Exception e)
 			{
 				Logger.Error(e);
-				Notify("Screen Capture Failed", e.Message, 15, "error", null);
+				Notify("Screen Capture Failed", e.Message, "error");
 			}
 		}
 
@@ -250,8 +248,8 @@ namespace HDT.Plugins.VictoryShot
 				{
 					Logger.Info($"Plugin Update available ({latest.Version})");
 					Notify("Plugin Update Available",
-						$"[DOWNLOAD]({latest.DownloadUrl}) {Name} v{latest.Version}",
-						10, IcoMoon.Download3, () => Process.Start(latest.DownloadUrl));
+						$"{Name} v{latest.Version}",
+						IcoMoon.Download3, latest.DownloadUrl);
 				}
 			}
 			catch (Exception e)

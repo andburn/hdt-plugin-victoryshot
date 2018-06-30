@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file. This projec
 ## [Unreleased]
 - *nothing*
 
+## [1.3.5] - 2018-06-30
+### Updated
+- Notifications now appear as HDT toasts
+
+### Fixes
+- No longer crashes when notifications are shown
+
 ## [1.3.4] - 2018-05-12
 ### Fixes
 - Invisible text when using HDT dark theme
@@ -21,7 +28,8 @@ All notable changes to this project will be documented in this file. This projec
 - Transferred to separate plugin from EndGame plugin
 - Screenshot needs to be saved by pressing the save button
 
-[Unreleased]: https://github.com/andburn/hdt-plugin-victoryshot/compare/1.3.4...HEAD
+[Unreleased]: https://github.com/andburn/hdt-plugin-victoryshot/compare/1.3.5...HEAD
+[1.3.4]: https://github.com/andburn/hdt-plugin-victoryshot/compare/1.3.4...1.3.5
 [1.3.4]: https://github.com/andburn/hdt-plugin-victoryshot/compare/1.3.3...1.3.4
 [1.3.3]: https://github.com/andburn/hdt-plugin-victoryshot/compare/v1.3.1...1.3.3
 [1.3.1]: https://github.com/andburn/hdt-plugin-victoryshot/compare/v1.3.0...v1.3.1
