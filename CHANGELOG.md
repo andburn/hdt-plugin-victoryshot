@@ -29,7 +29,7 @@ All notable changes to this project will be documented in this file. This projec
 - Screenshot needs to be saved by pressing the save button
 
 [Unreleased]: https://github.com/andburn/hdt-plugin-victoryshot/compare/1.3.5...HEAD
-[1.3.4]: https://github.com/andburn/hdt-plugin-victoryshot/compare/1.3.4...1.3.5
+[1.3.5]: https://github.com/andburn/hdt-plugin-victoryshot/compare/1.3.4...1.3.5
 [1.3.4]: https://github.com/andburn/hdt-plugin-victoryshot/compare/1.3.3...1.3.4
 [1.3.3]: https://github.com/andburn/hdt-plugin-victoryshot/compare/v1.3.1...1.3.3
 [1.3.1]: https://github.com/andburn/hdt-plugin-victoryshot/compare/v1.3.0...v1.3.1
