@@ -31,6 +31,7 @@ There is a time delay between HDT detecting the end of a game and the actual dis
 - *Set Output Directory* allows you to set the default save directory for screen shots (defaults to the Desktop).
 - *Filename Pattern* customization of screenshot filename (see below).
 - *Game Modes* selection of game modes that you want to capture end game screenshots.
+- *Alt Capture* if you are having problems with screenshots, such as them appearing black, untick this option.
 
 #### File Naming Pattern
 The file name pattern accepts the following special strings:

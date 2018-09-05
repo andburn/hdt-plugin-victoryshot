@@ -185,7 +185,8 @@ namespace HDT.Plugins.VictoryShot
 						Settings.Get(Strings.Delay).Int,
 						Settings.Get(Strings.OutputDir),
 						Settings.Get(Strings.NumberOfImages).Int,
-						Settings.Get(Strings.DelayBetweenShots).Int);
+						Settings.Get(Strings.DelayBetweenShots).Int,
+						Settings.Get(Strings.AltCapture).Bool);
 				}
 			}
 			catch (Exception e)

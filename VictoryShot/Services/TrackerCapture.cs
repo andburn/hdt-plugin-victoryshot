@@ -10,7 +10,7 @@ namespace HDT.Plugins.VictoryShot.Services
 {
 	public class TrackerCapture : IImageCaptureService
 	{
-		public async Task CaptureSequence(ObservableCollection<Screenshot> list, int delaySeconds, string dir, int num, int delayBetween)
+		public async Task CaptureSequence(ObservableCollection<Screenshot> list, int delaySeconds, string dir, int num, int delayBetween, bool altCapture)
 		{
 			VictoryShot.Logger.Info($"Capture Screen @ {delaySeconds}s then {delayBetween}ms");
 
@@ -22,7 +22,7 @@ namespace HDT.Plugins.VictoryShot.Services
 			// take num screenshots
 			for (int i = 0; i < num; i++)
 			{
-				Bitmap img = await CaptureScreenShot();
+				Bitmap img = await CaptureScreenShot(altCapture);
 				if (img != null)
 				{
 					var thumb = img.ResizeImage();
@@ -39,9 +39,9 @@ namespace HDT.Plugins.VictoryShot.Services
 			}
 		}
 
-		private static async Task<Bitmap> CaptureScreenShot()
+		private static async Task<Bitmap> CaptureScreenShot(bool altCapture)
 		{
-			return await VictoryShot.Client.GameScreenshot(true);
+			return await VictoryShot.Client.GameScreenshot(altCapture);
 		}
 	}
 }

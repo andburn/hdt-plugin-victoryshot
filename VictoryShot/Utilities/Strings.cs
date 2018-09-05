@@ -14,5 +14,6 @@
 		public const string RecordPractice = "RecordPractice";
 		public const string RecordRanked = "RecordRanked";
 		public const string FileNamePattern = "FileNamePattern";
+		public const string AltCapture = "AltCapture";
 	}
 }

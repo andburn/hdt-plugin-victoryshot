@@ -151,6 +151,19 @@ namespace HDT.Plugins.VictoryShot.ViewModels
 			}
 		}
 
+		public bool AltCapture
+		{
+			get
+			{
+				return VictoryShot.Settings.Get(Strings.AltCapture).Bool;
+			}
+			set
+			{
+				VictoryShot.Settings.Set(Strings.AltCapture, value);
+				RaisePropertyChanged(Strings.AltCapture);
+			}
+		}
+
 		public string FileNamePattern
 		{
 			get

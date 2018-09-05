@@ -134,13 +134,20 @@
         </Grid>
 
         <Border BorderThickness="0,1,0,0" Margin="0,15,0,8" Padding="4,4,4,0">
-            <TextBlock Height="35" TextWrapping="Wrap">
-                See the
-                <Hyperlink
-                    NavigateUri="https://github.com/andburn/hdt-plugin-victoryshot/blob/master/README.md"
-                    RequestNavigate="Hyperlink_Navigate">README</Hyperlink>
-                for more information about the settings and their values.
-            </TextBlock>
+            <StackPanel>
+                <CheckBox x:Name="CheckboxAltCapture" Content="Use alternative image capture"
+                        IsChecked="{Binding AltCapture}"
+                        HorizontalAlignment="Left" Margin="0,4,0,8"
+                        VerticalAlignment="Top"
+                        ToolTip="Enables the alternative image capture method. Enabled by default. Only disable if the screenshots are not being captured correctly." />
+                <TextBlock Height="35" TextWrapping="Wrap">
+                    See the
+                    <Hyperlink
+                        NavigateUri="https://github.com/andburn/hdt-plugin-victoryshot/blob/master/README.md"
+                        RequestNavigate="Hyperlink_Navigate">README</Hyperlink>
+                    for more settings information.
+                </TextBlock>
+            </StackPanel>
         </Border>
     </StackPanel>
 </UserControl>
