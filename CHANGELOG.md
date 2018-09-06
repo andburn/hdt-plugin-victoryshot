@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file. This projec
 ## [Unreleased]
 - *nothing*
 
+## [1.3.6] - 2018-09-06
+### Fixes 
+- Added an option to fix screen capture problems
+
 ## [1.3.5] - 2018-06-30
 ### Updated
 - Notifications now appear as HDT toasts
@@ -28,7 +32,8 @@ All notable changes to this project will be documented in this file. This projec
 - Transferred to separate plugin from EndGame plugin
 - Screenshot needs to be saved by pressing the save button
 
-[Unreleased]: https://github.com/andburn/hdt-plugin-victoryshot/compare/1.3.5...HEAD
+[Unreleased]: https://github.com/andburn/hdt-plugin-victoryshot/compare/1.3.6...HEAD
+[1.3.6]: https://github.com/andburn/hdt-plugin-victoryshot/compare/1.3.5...1.3.6
 [1.3.5]: https://github.com/andburn/hdt-plugin-victoryshot/compare/1.3.4...1.3.5
 [1.3.4]: https://github.com/andburn/hdt-plugin-victoryshot/compare/1.3.3...1.3.4
 [1.3.3]: https://github.com/andburn/hdt-plugin-victoryshot/compare/v1.3.1...1.3.3
