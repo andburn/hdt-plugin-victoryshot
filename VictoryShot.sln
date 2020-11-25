@@ -5,10 +5,6 @@ VisualStudioVersion = 15.0.26430.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VictoryShot", "VictoryShot\VictoryShot.csproj", "{33A76749-6C63-4099-BA32-DA2390365411}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VictoryShot.Tests", "VictoryShot.Tests\VictoryShot.Tests.csproj", "{8EDF4429-251A-416D-BB68-93F227191BCF}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VictoryShot.Common", "VictoryShot.Common\VictoryShot.Common.csproj", "{F51D27FB-4576-4DFA-9C1B-02FCBE414587}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,24 +21,11 @@ Global
 		{33A76749-6C63-4099-BA32-DA2390365411}.Release|Any CPU.Build.0 = Release|Any CPU
 		{33A76749-6C63-4099-BA32-DA2390365411}.Release|x86.ActiveCfg = Release|x86
 		{33A76749-6C63-4099-BA32-DA2390365411}.Release|x86.Build.0 = Release|x86
-		{8EDF4429-251A-416D-BB68-93F227191BCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8EDF4429-251A-416D-BB68-93F227191BCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8EDF4429-251A-416D-BB68-93F227191BCF}.Debug|x86.ActiveCfg = Debug|x86
-		{8EDF4429-251A-416D-BB68-93F227191BCF}.Debug|x86.Build.0 = Debug|x86
-		{8EDF4429-251A-416D-BB68-93F227191BCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8EDF4429-251A-416D-BB68-93F227191BCF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8EDF4429-251A-416D-BB68-93F227191BCF}.Release|x86.ActiveCfg = Release|x86
-		{8EDF4429-251A-416D-BB68-93F227191BCF}.Release|x86.Build.0 = Release|x86
-		{F51D27FB-4576-4DFA-9C1B-02FCBE414587}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F51D27FB-4576-4DFA-9C1B-02FCBE414587}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F51D27FB-4576-4DFA-9C1B-02FCBE414587}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{F51D27FB-4576-4DFA-9C1B-02FCBE414587}.Debug|x86.Build.0 = Debug|Any CPU
-		{F51D27FB-4576-4DFA-9C1B-02FCBE414587}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F51D27FB-4576-4DFA-9C1B-02FCBE414587}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F51D27FB-4576-4DFA-9C1B-02FCBE414587}.Release|x86.ActiveCfg = Release|x86
-		{F51D27FB-4576-4DFA-9C1B-02FCBE414587}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {50F9A9FB-5801-402A-A753-5870052E3109}
 	EndGlobalSection
 EndGlobal

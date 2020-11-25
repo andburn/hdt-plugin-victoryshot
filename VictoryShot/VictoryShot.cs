@@ -1,114 +1,50 @@
-﻿using GalaSoft.MvvmLight.Command;
-using HDT.Plugins.Common.Controls;
-using HDT.Plugins.Common.Providers.Metro;
-using HDT.Plugins.Common.Providers.Tracker;
-using HDT.Plugins.Common.Providers.Web;
-using HDT.Plugins.Common.Services;
-using HDT.Plugins.Common.Settings;
-using HDT.Plugins.Common.Utils;
-using HDT.Plugins.VictoryShot.Models;
-using HDT.Plugins.VictoryShot.Services;
-using HDT.Plugins.VictoryShot.Utilities;
-using HDT.Plugins.VictoryShot.ViewModels;
-using HDT.Plugins.VictoryShot.Views;
+﻿using Hearthstone_Deck_Tracker;
+using Hearthstone_Deck_Tracker.API;
 using Hearthstone_Deck_Tracker.Plugins;
-using Ninject;
+using Hearthstone_Deck_Tracker.Utility;
+using Hearthstone_Deck_Tracker.Utility.Logging;
 using System;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Reflection;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
 
 namespace HDT.Plugins.VictoryShot
 {
 	public class VictoryShot : IPlugin
 	{
-		private static IKernel _kernel;
-		private static IImageCaptureService _capture;
+		public static List<Screenshot> Screenshots;
 
-		public static IUpdateService Updater;
-		public static ILoggingService Logger;
-		public static IDataRepository Data;
-		public static IEventsService Events;
-		public static IGameClientService Client;
-		public static IConfigurationRepository Config;
-		public static Settings Settings;
-
-		public static ObservableCollection<Screenshot> Screenshots;
-		public static MainViewModel MainViewModel;
-
-		public string Name => "Victory Shot";
+		public string Name => "Victory Shot (Simple)";
 
 		public string Description => "Helps in capturing victory/defeat screen shots after a match.";
 
-		public string ButtonText => "Settings";
+		public string ButtonText => null;
 
 		public string Author => "andburn";
 
-		private Version _version;
+		public Version Version => new Version(2, 0);
 
-		public Version Version
-		{
-			get
-			{
-				if (_version == null)
-					_version = GetVersion() ?? new Version(0, 0, 0, 0);
-				return _version;
-			}
-		}
+		public MenuItem MenuItem => null;
 
 		public VictoryShot()
 		{
-			_kernel = GetKernel();
-			// initialize services
-			Updater = _kernel.Get<IUpdateService>();
-			Logger = _kernel.Get<ILoggingService>();
-			Data = _kernel.Get<IDataRepository>();
-			Events = _kernel.Get<IEventsService>();
-			Client = _kernel.Get<IGameClientService>();
-			Config = _kernel.Get<IConfigurationRepository>();
-			NotificationManager.SetService(_kernel.Get<IToastService>());
-			// load settings
-			var assembly = Assembly.GetExecutingAssembly();
-			var resourceName = "HDT.Plugins.VictoryShot.Resources.Default.ini";
-			Settings = new Settings(assembly.GetManifestResourceStream(resourceName), "VictoryShot");
-			// other
-			_capture = new TrackerCapture();
-			Screenshots = new ObservableCollection<Screenshot>();
-			MainViewModel = new MainViewModel();
-		}
-
-		private MenuItem _menuItem;
-
-		public MenuItem MenuItem
-		{
-			get
-			{
-				if (_menuItem == null)
-					_menuItem = CreateMenu();
-				return _menuItem;
-			}
+			Screenshots = new List<Screenshot>();
 		}
 
 		public void OnButtonPress()
 		{
-			ShowMainView(ViewModelHelper.SettingsString);
 		}
 
-		public async void OnLoad()
+		public void OnLoad()
 		{
-			// check for plugin update
-			await UpdateCheck("andburn", "hdt-plugin-victoryshot");
-			// set the action to run on the game end event
-			Events.OnGameEnd(Run);
+			GameEvents.OnGameEnd.Add(Run);
 		}
 
 		public void OnUnload()
 		{
-			CloseMainView();
 		}
 
 		public void OnUpdate()
@@ -119,171 +55,138 @@ namespace HDT.Plugins.VictoryShot
 		{
 			try
 			{
-				var mode = Data.GetGameMode();
-				// take the screenshots
-				await Capture(mode);
-				// check what game modes are enabled
-				if (IsModeEnabledForScreenshots(mode))
-				{
-					await WaitUntilInMenu();
-					ShowMainView(ViewModelHelper.ScreenshotsString);
-				}
+				// take screenshots
+				await Capture(GetGameMode());
 			}
 			catch (Exception e)
 			{
-				Logger.Error(e);
-				Notify("VictoryShot Error", e.Message, IcoMoon.Warning);
+				Log.Error(e);
 			}
 		}
 
-		private static void ShowMainView(string location)
+		private static string GetGameMode()
 		{
-			MainView view = null;
-			// check for any open windows
-			var open = Application.Current.Windows.OfType<MainView>();
-			if (open.Count() == 1)
+			var game = Hearthstone_Deck_Tracker.API.Core.Game;
+			if (game != null && game.IsRunning && game.CurrentGameStats != null)
 			{
-				view = open.FirstOrDefault();
+				Log.Info($"Mode {game.CurrentGameStats.GameMode}");
+				return game.CurrentGameStats.GameMode.ToString().ToLowerInvariant();
 			}
-			else
-			{
-				CloseMainView();
-				// create view
-				view = new MainView();
-				view.DataContext = MainViewModel;
-			}
-			// show the window, and restore if needed
-			view.Show();
-			if (view.WindowState == WindowState.Minimized)
-				view.WindowState = WindowState.Normal;
-			view.Activate();
-			// navigate to location
-			MainViewModel.OnNavigation(location);
-		}
-
-		public static void CloseMainView()
-		{
-			foreach (var view in Application.Current.Windows.OfType<MainView>())
-			{
-				view.Close();
-			}
-		}
-
-		public static void Notify(string title, string message, string icon = null, string url = null)
-		{
-			NotificationManager.ShowToast(title, message, icon, url);
+			Log.Info($"Mode not found");
+			return string.Empty;
 		}
 
 		private static async Task Capture(string mode)
 		{
+			// do it for all modes don't bother checking
 			try
 			{
-				if (IsModeEnabledForScreenshots(mode))
-				{
-					Screenshots.Clear();
-					await _capture.CaptureSequence(Screenshots,
-						Settings.Get(Strings.Delay).Int,
-						Settings.Get(Strings.OutputDir),
-						Settings.Get(Strings.NumberOfImages).Int,
-						Settings.Get(Strings.DelayBetweenShots).Int,
-						Settings.Get(Strings.AltCapture).Bool);
-				}
+				// clear the screenshot list (possible error site)
+				Screenshots.Clear();
+				await CaptureSequence(Screenshots, 6, null, 8, 500, true);
+				await SaveAll();
 			}
 			catch (Exception e)
 			{
-				Logger.Error(e);
-				Notify("Screen Capture Failed", e.Message, "error");
+				Log.Error(e);
 			}
 		}
 
-		private static bool IsModeEnabledForScreenshots(string mode)
+		private static async Task CaptureSequence(List<Screenshot> list, int delaySeconds, string dir, int num, int delayBetween, bool altCapture)
 		{
-			switch (mode.ToLowerInvariant())
+			Log.Info($"Capturing at {delaySeconds}s then {delayBetween}ms");
+
+			List<Screenshot> screenshots = new List<Screenshot>();
+
+			// initial delay, after end of game is triggered
+			await Task.Delay(delaySeconds * 1000);
+
+			// take num screenshots
+			for (int i = 0; i < num; i++)
 			{
-				case "ranked":
-					return Settings.Get(Strings.RecordRanked).Bool;
-
-				case "casual":
-					return Settings.Get(Strings.RecordCasual).Bool;
-
-				case "arena":
-					return Settings.Get(Strings.RecordArena).Bool;
-
-				case "brawl":
-					return Settings.Get(Strings.RecordBrawl).Bool;
-
-				case "friendly":
-					return Settings.Get(Strings.RecordFriendly).Bool;
-
-				case "practice":
-					return Settings.Get(Strings.RecordPractice).Bool;
-
-				case "spectator":
-				case "none":
-					return Settings.Get(Strings.RecordOther).Bool;
-
-				default:
-					return false;
-			}
-		}
-
-		private static async Task WaitUntilInMenu()
-		{
-			var timeout = 30000;
-			var wait = 1000;
-			var elapsed = 0;
-			while (!Client.IsInMenu())
-			{
-				await Task.Delay(wait);
-				elapsed += wait;
-				if (elapsed >= timeout)
-					return;
-			}
-		}
-
-		private async Task UpdateCheck(string user, string repo)
-		{
-			try
-			{
-				var latest = await Updater.CheckForUpdate(user, repo, Version);
-				if (latest.HasUpdate)
+				Bitmap img = await CaptureScreenShot(altCapture);
+				if (img != null)
 				{
-					Logger.Info($"Plugin Update available ({latest.Version})");
-					Notify("Plugin Update Available",
-						$"{Name} v{latest.Version}",
-						IcoMoon.Download3, latest.DownloadUrl);
+					var thumb = img.ResizeImage();
+					list.Add(new Screenshot(img, thumb.ToMediaImage(), i + 1));
+					Log.Info($"Adding image #{i}");
+				}
+				await Task.Delay(delayBetween);
+			}
+		}
+
+		private static async Task<Bitmap> CaptureScreenShot(bool alt)
+		{
+			var rect = Helper.GetHearthstoneRect(true);
+			Log.Info($"Rectangle ({rect.X}, {rect.Y}, {rect.Width}, {rect.Height})");
+			
+			Log.Info($"Calling screen capture");
+			return await ScreenCapture.CaptureHearthstoneAsync(
+				new Point(0, 0), rect.Width, rect.Height, altScreenCapture: alt);
+		}
+
+		public static async Task SaveImage(Screenshot screenshot)
+		{
+			if (screenshot != null)
+			{
+				var baseDir = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+				var saveDir = Path.Combine(baseDir, "VictoryShot");
+				if (!Directory.Exists(saveDir))
+				{
+					Log.Info($"Creating directory ({saveDir})");
+					try
+					{
+						Directory.CreateDirectory(saveDir);
+					}
+					catch (Exception e)
+					{
+						Log.Error(e);
+						return;
+					}					
+				}
+				var filename = DateTime.Now.ToString("dd.MM.yyyy_HH.mm");
+				await SaveAsPng(
+					screenshot.Full, 
+					Path.Combine(saveDir, $"{filename}_{screenshot.Index}.png"));
+			}
+			else
+			{
+				throw new ArgumentNullException("Screenshot was null");
+			}
+		}
+
+		private static async Task SaveAsPng(Bitmap bmp, string file)
+		{
+			Log.Info($"Saving to '{file}'.png");
+			await Task.Run(() => bmp.Save(file + ".png", ImageFormat.Png));
+		}
+
+		private static async Task SaveAll()
+		{
+			// now save them afterwards (mimic live plugin 'ish')
+			foreach (var s in Screenshots)
+			{
+				if (s != null)
+				{
+					Log.Info($"Attempting to save screenshot #{s.Index}");
+					try
+					{
+						await SaveImage(s);						
+					}
+					catch (Exception e)
+					{
+						Log.Error(e.Message);
+					}
+				}
+				else
+				{
+					Log.Info($"Screenshot is null (idx={s.Index}, len={Screenshots?.Count})");
 				}
 			}
-			catch (Exception e)
-			{
-				Logger.Error($"Github update failed: {e.Message}");
-			}
-		}
 
-		private IKernel GetKernel()
-		{
-			var kernel = new StandardKernel();
-			kernel.Bind<IDataRepository>().To<TrackerDataRepository>().InSingletonScope();
-			kernel.Bind<IUpdateService>().To<GitHubUpdateService>().InSingletonScope();
-			kernel.Bind<ILoggingService>().To<TrackerLoggingService>().InSingletonScope();
-			kernel.Bind<IEventsService>().To<TrackerEventsService>().InSingletonScope();
-			kernel.Bind<IGameClientService>().To<TrackerClientService>().InSingletonScope();
-			kernel.Bind<IConfigurationRepository>().To<TrackerConfigRepository>().InSingletonScope();
-			kernel.Bind<ISlidePanel>().To<MetroSlidePanel>();
-			kernel.Bind<IToastService>().To<TrackerToastService>().InSingletonScope();
-			return kernel;
-		}
-
-		private MenuItem CreateMenu()
-		{
-			var pm = new PluginMenu("Victory Shot", IcoMoon.Trophy,
-				new RelayCommand(() => ShowMainView(ViewModelHelper.SettingsString)));
-			return pm.Menu;
-		}
-
-		private Version GetVersion()
-		{
-			return GitVersion.Get(Assembly.GetExecutingAssembly(), this);
+			// wait then clear screenshots
+			await Task.Delay(1000);
+			Screenshots.Clear();
 		}
 	}
 }

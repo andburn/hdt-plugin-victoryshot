@@ -5,7 +5,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Media.Imaging;
 
-namespace HDT.Plugins.VictoryShot.Utilities
+namespace HDT.Plugins.VictoryShot
 {
 	public static class BitmapExtensions
 	{

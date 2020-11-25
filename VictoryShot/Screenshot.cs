@@ -1,10 +1,9 @@
-﻿using GalaSoft.MvvmLight;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Windows.Media.Imaging;
 
-namespace HDT.Plugins.VictoryShot.Models
+namespace HDT.Plugins.VictoryShot
 {
-	public class Screenshot : ObservableObject
+	public class Screenshot
 	{
 		public Bitmap Full { get; private set; }
 		public BitmapImage Thumbnail { get; private set; }
@@ -14,7 +13,7 @@ namespace HDT.Plugins.VictoryShot.Models
 		public bool IsSelected
 		{
 			get { return _isSelected; }
-			set { Set(() => IsSelected, ref _isSelected, value); }
+			set { _isSelected = value; }
 		}
 
 		private int _index;
@@ -22,7 +21,7 @@ namespace HDT.Plugins.VictoryShot.Models
 		public int Index
 		{
 			get { return _index; }
-			set { Set(() => Index, ref _index, value); }
+			set { _index = value; }
 		}
 
 		public Screenshot(Bitmap image, BitmapImage thumb, int index)
