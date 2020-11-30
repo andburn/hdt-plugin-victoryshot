@@ -1,8 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file. This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
-- *nothing*
+
+## [2.0.0] - 2020-11-30
+### Changed
+- Stripped back to most basic form of plugin
 
 ## [1.3.6] - 2018-09-06
 ### Fixes 

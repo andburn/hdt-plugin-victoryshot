@@ -83,6 +83,7 @@ namespace HDT.Plugins.VictoryShot
 			{
 				// clear the screenshot list (possible error site)
 				Screenshots.Clear();
+				// no real universally correct values for this, can vary per user
 				await CaptureSequence(Screenshots, 6, null, 8, 500, true);
 				await SaveAll();
 			}
@@ -133,6 +134,7 @@ namespace HDT.Plugins.VictoryShot
 				var saveDir = Path.Combine(baseDir, "VictoryShot");
 				if (!Directory.Exists(saveDir))
 				{
+					// save screenshots in the MyPictures directory, in a 'VictoryShot' sub-directory
 					Log.Info($"Creating directory ({saveDir})");
 					try
 					{

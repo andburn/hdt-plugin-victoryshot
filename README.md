@@ -1,10 +1,12 @@
 ## Victory Shot
-[![GitHub release](https://img.shields.io/github/release/andburn/hdt-plugin-victoryshot.svg?maxAge=21600)](https://github.com/andburn/hdt-plugin-victoryshot/releases/latest)
-[![Github downloads](https://img.shields.io/github/downloads/andburn/hdt-plugin-victoryshot/latest/total.svg?maxAge=21600)](https://github.com/andburn/hdt-plugin-victoryshot/releases/latest)
 
-A [Hearthstone Deck Tracker](https://hsdecktracker.net/) plugin that that takes screenshots at the end of a match.
+**This plugin has been archived and is no longer supported.** 
+
+*The functionality of this plugin has been shown to be inconsistent across all users and failed to adequately address the problem it tried to solve. The currrent source code version has been stripped back to its most basic form, all UI and customisable settings have been removed. As it stands it serves as possible base for understanding and extension. Previous versions are still available as releases and through the commit history.*
 
 ---
+
+A [Hearthstone Deck Tracker](https://hsdecktracker.net/) plugin that takes screenshots at the end of a match.
 
 ## Install
 1. Remove any previous versions of this plugin from `%AppData%HearthstoneDeckTracker\Plugins`
